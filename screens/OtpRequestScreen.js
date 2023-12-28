@@ -33,74 +33,7 @@ const OtpRequestScreen = ({ navigation }) => {
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={styles.container}>
           <Text style={styles.header}>Cabman</Text>
-          {otpRequested ? (
-            <>
-              <View style={{ marginTop: 14 }}>
-                <Text style={styles.header2}>Create your account</Text>
-              </View>
-              <View style={styles.form}>
-                <Text style={styles.label}>Phone Number</Text>
-                <View
-                  style={{
-                    marginHorizontal: 10,
-                    marginBottom: 10,
-                    fontFamily: styles.input.fontFamily,
-                  }}
-                >
-                  <PhoneInput
-                    defaultValue="+234"
-                    value={inputValue}
-                    placeholder="Phone number"
-                    onChangePhoneNumber={handleInputValue}
-                    selectedCountry={selectedCountry}
-                    onChangeSelectedCountry={handleSelectedCountry}
-                  />
-                  <Text
-                    style={{
-                      marginVertical: 14,
-                      fontFamily: "Poppins_400Regular",
-                    }}
-                  >
-                    You will receive a voice OTP (Verification code). Message
-                    and data rates may apply.
-                  </Text>
-                </View>
-                <TouchableOpacity
-                  style={styles.submitButton}
-                  onPress={() => setOtpRequested(true)}
-                >
-                  <Text
-                    style={{
-                      color: "white",
-                      textAlign: "center",
-                      fontFamily: "Poppins_400Regular",
-                      fontSize: 16,
-                      textAlignVertical: "center",
-                    }}
-                  >
-                    Request OTP
-                  </Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ alignItems: "center" }}>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    marginTop: 10,
-                    fontFamily: "Poppins_400Regular",
-                  }}
-                >
-                  Already have an account?{" "}
-                  <Text
-                    onPress={() => navigation.navigate("Login")}
-                    style={{ color: "blue" }}
-                  >
-                    Sign In
-                  </Text>
-                </Text>
-              </View>
-            </>
-          ) : (
+          {otpRequested ?  (
             <>
               <View style={{ marginTop: 14 }}>
                 <Text style={styles.header2}>Input OTP</Text>
@@ -126,7 +59,76 @@ const OtpRequestScreen = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </>
-          )}
+          )
+                    :(
+                      <>
+                        <View style={{ marginTop: 14 }}>
+                          <Text style={styles.header2}>Create your account</Text>
+                        </View>
+                        <View style={styles.form}>
+                          <Text style={styles.label}>Phone Number</Text>
+                          <View
+                            style={{
+                              marginHorizontal: 10,
+                              marginBottom: 10,
+                              fontFamily: styles.input.fontFamily,
+                            }}
+                          >
+                            <PhoneInput
+                              defaultValue="+234"
+                              value={inputValue}
+                              placeholder="Phone number"
+                              onChangePhoneNumber={handleInputValue}
+                              selectedCountry={selectedCountry}
+                              onChangeSelectedCountry={handleSelectedCountry}
+                            />
+                            <Text
+                              style={{
+                                marginVertical: 14,
+                                fontFamily: "Poppins_400Regular",
+                              }}
+                            >
+                              You will receive a voice OTP (Verification code). Message
+                              and data rates may apply.
+                            </Text>
+                          </View>
+                          <TouchableOpacity
+                            style={styles.submitButton}
+                            onPress={() => setOtpRequested(true)}
+                          >
+                            <Text
+                              style={{
+                                color: "white",
+                                textAlign: "center",
+                                fontFamily: "Poppins_400Regular",
+                                fontSize: 16,
+                                textAlignVertical: "center",
+                              }}
+                            >
+                              Request OTP
+                            </Text>
+                          </TouchableOpacity>
+                        </View>
+                        <View style={{ alignItems: "center" }}>
+                          <Text
+                            style={{
+                              fontSize: 15,
+                              marginTop: 10,
+                              fontFamily: "Poppins_400Regular",
+                            }}
+                          >
+                            Already have an account?{" "}
+                            <Text
+                              onPress={() => navigation.navigate("Login")}
+                              style={{ color: "blue" }}
+                            >
+                              Sign In
+                            </Text>
+                          </Text>
+                        </View>
+                      </>
+                    ) 
+        }
         </View>
       </ScrollView>
     </>

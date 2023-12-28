@@ -7,6 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import OtpRequestScreen from "./screens/OtpRequestScreen";
 import HomeScreen from "./screens/protected/HomeScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
+import MainApp from "./essentials/MainApp";
 import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
@@ -56,6 +57,13 @@ function Unprotected() {
         component={RegistrationScreen}
         options={{ title: "Register", headerShown: false }}
       ></Stack.Screen>
+      <Stack.Screen
+      name="MainApp"
+      component={MainApp}
+      options={{title: "MainApp", headerShown: false}}
+      >
+
+      </Stack.Screen>
     </Stack.Navigator>
   );
 }

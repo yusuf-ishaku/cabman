@@ -70,7 +70,7 @@ const LoginScreen = ({ navigation }) => {
             </Text>
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() => navigation.navigate("HomeScreen")}
+              onPress={() => navigation.navigate("MainApp")}
             >
               <Text
                 style={{

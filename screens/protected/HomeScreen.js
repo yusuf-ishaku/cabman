@@ -13,6 +13,7 @@ import {
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import MapView from "react-native-maps";
+import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
 
 const HomeScreen = () => {
     return(
@@ -27,6 +28,7 @@ const HomeScreen = () => {
                     longitudeDelta: 0.0421,
                   }}
                 style={{width: '100%', height: '100%'}}
+                provider={PROVIDER_GOOGLE}
                 />
             </View>
         </View>

@@ -22,7 +22,12 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yuishaku.cabman"
+      "package": "com.yuishaku.cabman",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyABs596vvmduVOKzhadtAnrjQppxtrKjxk"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

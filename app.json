@@ -23,11 +23,6 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.yuishaku.cabman",
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyABs596vvmduVOKzhadtAnrjQppxtrKjxk"
-        }
-      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

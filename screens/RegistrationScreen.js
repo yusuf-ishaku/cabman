@@ -16,6 +16,12 @@ import PhoneInput from "react-native-international-phone-number";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const paramOptions = {
+  status: "Success",
+  info: "You have successfully completed your registration. You can now book and enjoy your rides.",
+  nextPage: "MainApp",
+  action: "OK"
+};
 const RegistrationScreen = ({ navigation }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
@@ -29,9 +35,9 @@ const RegistrationScreen = ({ navigation }) => {
   }
   return (
     <>
-      <ScrollView>
+      <View style={{width, height, backgroundColor: "black"}}>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Text style={styles.header}>Cabman</Text>
           <>
             <View style={{ marginTop: 14 }}>
@@ -43,23 +49,43 @@ const RegistrationScreen = ({ navigation }) => {
                 style={styles.input}
                 placeholder="Username"
               ></TextInput>
-              <Text style={styles.label}>Email</Text>
-              <TextInput style={styles.input} placeholder="Email"></TextInput>
               <Text style={styles.label}>Address</Text>
-              <TextInput style={styles.input} placeholder="Address"></TextInput>
+              <TextInput style={styles.input} placeholder="Enter Address"></TextInput>
+              <Text style={styles.label}>City</Text>
+              <TextInput style={styles.input} placeholder="Enter City"></TextInput>
+              <Text style={styles.label}>Country</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter country"
+              ></TextInput>
+              <Text style={styles.label}>Email</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Email"
+              ></TextInput>
+              <Text style={styles.label}>Profile Picture</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Add Profile Picture"
+              ></TextInput>
+               <Text style={styles.label}>Referral code</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Referral Code (Optional)"
+              ></TextInput>
               <Text style={styles.label}>Password</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder="Enter Password"
               ></TextInput>
               <Text style={styles.label}>Confirm Password</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Password"
+                placeholder="Confirm Password"
               ></TextInput>
               <TouchableOpacity
                 style={styles.submitButton}
-                onPress={() => navigation.navigate("MainApp")}
+                onPress={() => navigation.navigate("SuccessScreen", paramOptions)}
               >
                 <Text
                   style={{
@@ -70,13 +96,24 @@ const RegistrationScreen = ({ navigation }) => {
                     textAlignVertical: "center",
                   }}
                 >
-                  Register
+                  Submit
                 </Text>
               </TouchableOpacity>
+              <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontFamily: "Poppins_400Regular",
+              fontSize: 16,
+              textTransform: "uppercase",
+            }}
+          >
+           By signing up, you agree to our terms of use and privacy policy.
+          </Text>
             </View>
           </>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </>
   );
 };

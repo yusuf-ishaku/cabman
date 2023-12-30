@@ -16,6 +16,12 @@ import PhoneInput from "react-native-international-phone-number";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
+const paramOptions = {
+  status: "Verified",
+  info: "You have successfully verified your phone number. You can use your phone number as your username. Continue to enter your personal information and complete the registration process",
+  nextPage: "Register",
+  action: "Continue"
+};
 const OtpRequestScreen = ({ navigation }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
@@ -36,14 +42,28 @@ const OtpRequestScreen = ({ navigation }) => {
           {otpRequested ?  (
             <>
               <View style={{ marginTop: 14 }}>
-                <Text style={styles.header2}>Input OTP</Text>
+                <Text style={{...styles.header2, textAlign: 'center'}}>Verify code</Text>
+              </View>
+              <View style={{ marginTop: 14 }}>
+                <Text style={{textAlign: 'center', fontWeight: 'normal', fontFamily: 'Poppins_400Regular', fontSize: 16, marginHorizontal: 10}}>Please enter the verification code received via Voice OTP on your phone: 89899998989</Text>
               </View>
               <View style={styles.form}>
-                <Text style={styles.label}>OTP</Text>
+                <Text style={styles.label}>Verify</Text>
                 <TextInput style={styles.input} placeholder="OTP"></TextInput>
+                <Text 
+                 style={{
+                  color: "black",
+                  textAlign: "center",
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 16,
+                  marginVertical: 16
+                }}
+                >
+                  Didn't get a code? <Text style={{color: "blue"}}>Try again</Text>
+                </Text>
                 <TouchableOpacity
                   style={styles.submitButton}
-                  onPress={() => navigation.navigate("Register")}
+                  onPress={() => navigation.navigate("SuccessScreen", paramOptions)}
                 >
                   <Text
                     style={{
@@ -57,6 +77,7 @@ const OtpRequestScreen = ({ navigation }) => {
                     Verify
                   </Text>
                 </TouchableOpacity>
+                
               </View>
             </>
           )
@@ -105,7 +126,7 @@ const OtpRequestScreen = ({ navigation }) => {
                                 textAlignVertical: "center",
                               }}
                             >
-                              Request OTP
+                              Continue
                             </Text>
                           </TouchableOpacity>
                         </View>

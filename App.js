@@ -8,6 +8,8 @@ import OtpRequestScreen from "./screens/OtpRequestScreen";
 import HomeScreen from "./screens/protected/HomeScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import MainApp from "./essentials/MainApp";
+import RiderDriverScreen from "./screens/RiderDriverScreen";
+import SignUporSignInScreen from "./screens/SignUporSignIn";
 import * as SplashScreen from "expo-splash-screen";
 import {
   useFonts,
@@ -30,13 +32,14 @@ import {
   Poppins_900Black,
   Poppins_900Black_Italic,
 } from "@expo-google-fonts/poppins";
+import SuccessScreen from "./screens/SuccessScreen";
 
 const Stack = createNativeStackNavigator();
-// SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync();
 
 function Unprotected() {
   return (
-    <Stack.Navigator initialRouteName="Login">
+    <Stack.Navigator initialRouteName="RiderDriverScreen">
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -58,9 +61,26 @@ function Unprotected() {
         options={{ title: "Register", headerShown: false }}
       ></Stack.Screen>
       <Stack.Screen
-      name="MainApp"
-      component={MainApp}
-      options={{title: "MainApp", headerShown: false}}
+        name="MainApp"
+        component={MainApp}
+        options={{ title: "MainApp", headerShown: false }}
+      ></Stack.Screen>
+      <Stack.Screen
+        name="RiderDriverScreen"
+        component={RiderDriverScreen}
+        options={{ title: "Rider or Driver?", headerShown: false }}
+      ></Stack.Screen>
+      <Stack.Screen
+      name="SignUporSignInScreen"
+      component={SignUporSignInScreen}
+      options={{title: "Sign Up or sign in screen", headerShown: false}}
+      >
+
+      </Stack.Screen>
+      <Stack.Screen
+      name="SuccessScreen"
+      component={SuccessScreen}
+      options={{title: "Success", headerShown: false}}
       >
 
       </Stack.Screen>

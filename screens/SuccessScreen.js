@@ -1,4 +1,4 @@
-import  Ionicons  from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   View,
   Text,
@@ -11,17 +11,29 @@ import {
   ScrollView,
 } from "react-native";
 const width = Dimensions.get("window").width;
-const height = Dimensions.get("window").height
+const height = Dimensions.get("window").height;
 const SuccessScreen = ({ route, navigation }) => {
-    const params = route.params
+  const params = route.params;
   return (
     <>
-      <View
-        style={styles.container}
-      >
-        <Ionicons name="ios-checkmark-circle-outline" size={80} color="green" />
-        <Text style={styles.header}>{params.status}</Text>
-        <Text style={{fontFamily: 'Poppins_400Regular', fontSize: 16, textAlign: 'center', marginVertical: 10}}>{params.info}</Text>
+      <View style={styles.container}>
+        <Ionicons
+          name="ios-checkmark-circle-outline"
+          size={120}
+          color="green"
+        />
+        <Text style={{ fontSize: 40, ...styles.header }}>{params.status}!</Text>
+        <Text
+          style={{
+            fontFamily: "Poppins_400Regular",
+            fontSize: 16,
+            textAlign: "center",
+            marginVertical: 10,
+            paddingHorizontal: 20
+          }}
+        >
+          {params.info}
+        </Text>
         <TouchableOpacity
           style={styles.submitButton}
           onPress={() => navigation.navigate(`${params.nextPage}`)}
@@ -55,12 +67,12 @@ const styles = StyleSheet.create({
   },
   header: {
     width,
-    height: 50,
+    height: "auto",
     paddingTop: 10,
     paddingBottom: 10,
     alignItems: "center",
     fontFamily: "Poppins_500Medium",
-    fontSize: 24,
+    fontSize: 40,
     color: "blue",
     textAlign: "center",
   },
@@ -74,6 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
+    marginTop: 28
   },
 });
 

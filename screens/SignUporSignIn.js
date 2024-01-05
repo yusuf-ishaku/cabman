@@ -13,7 +13,7 @@ import {
 // import { useFonts } from 'expo-font';
 // import PhoneInput from "react-native-phone-number-input";
 import * as SplashScreen from "expo-splash-screen";
-
+import { LogoComponent } from "./components/LogoComponent";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -21,23 +21,37 @@ const SignUporSignInScreen = ({ navigation }) => {
   React.useEffect(() => {
     const onLayoutRootView = async () => {
       await SplashScreen.hideAsync();
-    }
+    };
     onLayoutRootView();
-  })
+  });
   return (
     <>
-      <ScrollView >
+      <ScrollView>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
-        <View  style={styles.container}>
-          <Text style={styles.header}>Cabman</Text>
+        <View style={styles.container}>
+          <View style={{alignItems: 'center', marginBottom: height/5, marginTop: 40}}>
+            <LogoComponent style={{ height: 60 }}></LogoComponent>
+            <Text
+              style={{
+                fontFamily: "Poppins_400Regular",
+                textAlign: "center",
+                marginHorizontal: 10,
+                marginBottom: 20,
+                paddingHorizontal: 20
+              }}
+            >
+              Make your day more efficient and rewarding with any of our
+              options. Classic or Executive rides. Just relax and let Cabman
+              take you there in safety and comfort!
+            </Text>
+          </View>
+
           <Text
-          style={{fontFamily: "Poppins_400Regular", textAlign: 'center', marginHorizontal: 10, marginBottom: 20}}
-          >
-            Make your day more efficient and rewarding with any of our options. Classic or Executive rides.
-            Just relax and let Cabman take you there in safety and comfort!
-          </Text>
-          <Text
-           style={{fontFamily: "Poppins_400Regular", textAlign: 'center', marginHorizontal: 10}}
+            style={{
+              fontFamily: "Poppins_400Regular",
+              textAlign: "center",
+              marginHorizontal: 10,
+            }}
           >
             Already have an account?
           </Text>
@@ -51,19 +65,29 @@ const SignUporSignInScreen = ({ navigation }) => {
                 textAlign: "center",
                 fontFamily: "Poppins_400Regular",
                 fontSize: 16,
-                textTransform: 'uppercase'
+                textTransform: "uppercase",
               }}
             >
               Sign In to Account
             </Text>
           </TouchableOpacity>
           <Text
-           style={{fontFamily: "Poppins_400Regular", textAlign: 'center', marginHorizontal: 10}}
+            style={{
+              fontFamily: "Poppins_400Regular",
+              textAlign: "center",
+              marginHorizontal: 10,
+            }}
           >
-              Don't have an account?
+            Don't have an account?
           </Text>
           <TouchableOpacity
-            style={{...styles.submitButton, backgroundColor: 'white', borderColor: 'blue', borderWidth: 1, color: 'blue'}}
+            style={{
+              ...styles.submitButton,
+              backgroundColor: "white",
+              borderColor: "blue",
+              borderWidth: 1,
+              color: "blue",
+            }}
             onPress={() => navigation.navigate("SignUp")}
           >
             <Text
@@ -72,7 +96,7 @@ const SignUporSignInScreen = ({ navigation }) => {
                 textAlign: "center",
                 fontFamily: "Poppins_400Regular",
                 fontSize: 16,
-                textTransform: 'uppercase'
+                textTransform: "uppercase",
               }}
             >
               Sign Up new Account
@@ -107,7 +131,7 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "blue",
     marginHorizontal: 10,
-    width: '90%',
+    width: "90%",
     marginBottom: 20,
     height: 40,
     justifyContent: "center",

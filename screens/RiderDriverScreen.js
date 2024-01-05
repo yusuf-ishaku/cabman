@@ -9,7 +9,9 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  ImageBackground
 } from "react-native";
+import { LogoComponent } from "./components/LogoComponent";
 // import { useFonts } from 'expo-font';
 // import PhoneInput from "react-native-phone-number-input";
 import * as SplashScreen from "expo-splash-screen";
@@ -28,8 +30,13 @@ const RiderDriverScreen = ({ navigation }) => {
     <>
       <ScrollView >
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
-        <View  style={styles.container}>
-          <Text style={styles.header}>Cabman</Text>
+        <ImageBackground  
+        style={{...styles.container, backgroundFit: 'cover'}}
+        source={require("../assets/appimages/bgImage.jpg")}
+        
+        >
+          <LogoComponent style={{marginTop: height/4}}></LogoComponent>
+          <View style={{width, justifyContent: "center", alignItems: "center"}}>
           <TouchableOpacity
             style={styles.submitButton}
             onPress={() => navigation.navigate("SignUporSignInScreen")}
@@ -39,7 +46,8 @@ const RiderDriverScreen = ({ navigation }) => {
                 color: "white",
                 textAlign: "center",
                 fontFamily: "Poppins_400Regular",
-                fontSize: 16,
+                fontSize: 20,
+                fontWeight: 'semibold'
               }}
             >
               Rider
@@ -54,13 +62,15 @@ const RiderDriverScreen = ({ navigation }) => {
                 color: "blue",
                 textAlign: "center",
                 fontFamily: "Poppins_400Regular",
-                fontSize: 16,
+                fontSize: 20,
+                fontWeight: 'semibold'
               }}
             >
               Driver
             </Text>
           </TouchableOpacity>
-        </View>
+          </View>
+        </ImageBackground>
       </ScrollView>
     </>
   );
@@ -71,7 +81,7 @@ const styles = StyleSheet.create({
     height,
     backgroundColor: "white",
     flex: 1,
-    // justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   header: {
@@ -91,7 +101,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     width: '90%',
     marginBottom: 20,
-    height: 40,
+    height: 50,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,

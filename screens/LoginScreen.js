@@ -12,6 +12,7 @@ import {
 } from "react-native";
 // import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
+import { LogoComponent } from "./components/LogoComponent";
 // import PhoneInput from "react-native-phone-number-input";
 
 const width = Dimensions.get("window").width;
@@ -31,12 +32,8 @@ const LoginScreen = ({ navigation }) => {
       <ScrollView>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={styles.container}>
-          <Text style={styles.header}>Cabman</Text>
-          <View>
-            <Text style={styles.header2}>Welcome back.</Text>
-            <Text style={styles.header3}>Hello there, sign in to continue</Text>
-          </View>
-          <View style={styles.form}>
+          <LogoComponent style={{alignSelf: 'center', marginTop: 40}}></LogoComponent>
+          <View style={{marginTop: 50,...styles.form}}>
             <Text style={styles.label}>Phone Number</Text>
             <View
               style={{
@@ -55,7 +52,7 @@ const LoginScreen = ({ navigation }) => {
               />
             </View>
             <Text style={styles.label}>Password</Text>
-            <TextInput style={styles.input} placeholder="Password"></TextInput>
+            <TextInput style={styles.input} placeholder="Enter Password"></TextInput>
             <Text
               style={{
                 textAlign: "right",
@@ -81,7 +78,7 @@ const LoginScreen = ({ navigation }) => {
                   textAlignVertical: "center",
                 }}
               >
-                Sign In
+                Submit
               </Text>
             </TouchableOpacity>
           </View>
@@ -105,7 +102,7 @@ const LoginScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate("SignUp")}
                 style={{ color: "blue" }}
               >
-                Register
+               Sign Up
               </Text>
             </Text>
           </View>

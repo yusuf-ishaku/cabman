@@ -18,7 +18,7 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const paramOptions = {
   status: "Success",
-  info: "You have successfully completed your registration. You can now book and enjoy your rides.",
+  info: "You have successfully completed your registration. \n You can now book and enjoy your rides.",
   nextPage: "MainApp",
   action: "OK"
 };
@@ -38,11 +38,8 @@ const RegistrationScreen = ({ navigation }) => {
       <View style={{width, height, backgroundColor: "black"}}>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <ScrollView style={styles.container}>
-          <Text style={styles.header}>Cabman</Text>
+          <Text style={styles.header}>Personal Information</Text>
           <>
-            <View style={{ marginTop: 14 }}>
-              <Text style={styles.header2}>Create your account</Text>
-            </View>
             <View style={styles.form}>
               <Text style={styles.label}>Username</Text>
               <TextInput

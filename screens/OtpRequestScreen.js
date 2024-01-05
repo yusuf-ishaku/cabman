@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Keyboard
 } from "react-native";
 // import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
@@ -18,7 +19,7 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const paramOptions = {
   status: "Verified",
-  info: "You have successfully verified your phone number. You can use your phone number as your username. Continue to enter your personal information and complete the registration process",
+  info: "You have successfully verified your phone number. You can use your phone number as your username. \n Continue to enter your personal information and complete the registration process",
   nextPage: "Register",
   action: "Continue"
 };
@@ -38,18 +39,22 @@ const OtpRequestScreen = ({ navigation }) => {
       <ScrollView>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={styles.container}>
-          <Text style={styles.header}>Cabman</Text>
+          {/* <Text style={styles.header}>Cabman</Text> */}
           {otpRequested ?  (
             <>
               <View style={{ marginTop: 14 }}>
-                <Text style={{...styles.header2, textAlign: 'center'}}>Verify code</Text>
+                <Text style={{...styles.header2, textAlign: 'center', marginTop: 40, marginBottom: 50}}>Verify code</Text>
               </View>
               <View style={{ marginTop: 14 }}>
                 <Text style={{textAlign: 'center', fontWeight: 'normal', fontFamily: 'Poppins_400Regular', fontSize: 16, marginHorizontal: 10}}>Please enter the verification code received via Voice OTP on your phone: 89899998989</Text>
               </View>
               <View style={styles.form}>
                 <Text style={styles.label}>Verify</Text>
-                <TextInput style={styles.input} placeholder="OTP"></TextInput>
+            <TextInput onChangeText={newText => {
+              if(newText.length > 3){
+                Keyboard.dismiss();
+              }
+            }} keyboardType="numeric" style={{textAlign: 'center', ...styles.input}} placeholder="----" ></TextInput>
                 <Text 
                  style={{
                   color: "black",
@@ -83,8 +88,8 @@ const OtpRequestScreen = ({ navigation }) => {
           )
                     :(
                       <>
-                        <View style={{ marginTop: 14 }}>
-                          <Text style={styles.header2}>Create your account</Text>
+                        <View style={{ marginTop: 14, marginBottom: 50, textAlign: 'center' }}>
+                          <Text style={{textAlign: 'center',...styles.header2}}>Phone Verification</Text>
                         </View>
                         <View style={styles.form}>
                           <Text style={styles.label}>Phone Number</Text>
@@ -103,15 +108,6 @@ const OtpRequestScreen = ({ navigation }) => {
                               selectedCountry={selectedCountry}
                               onChangeSelectedCountry={handleSelectedCountry}
                             />
-                            <Text
-                              style={{
-                                marginVertical: 14,
-                                fontFamily: "Poppins_400Regular",
-                              }}
-                            >
-                              You will receive a voice OTP (Verification code). Message
-                              and data rates may apply.
-                            </Text>
                           </View>
                           <TouchableOpacity
                             style={styles.submitButton}
@@ -129,8 +125,21 @@ const OtpRequestScreen = ({ navigation }) => {
                               Continue
                             </Text>
                           </TouchableOpacity>
+                          <Text
+                              style={{
+                                marginTop: 20,
+                                marginVertical: 14,
+                                fontFamily: "Poppins_400Regular",
+                                textAlign: 'center',
+                                width: width * 4/5,
+                                alignSelf: 'center'
+                              }}
+                            >
+                              You will receive a voice OTP (Verification code). Message
+                              and data rates may apply.
+                            </Text>
                         </View>
-                        <View style={{ alignItems: "center" }}>
+                        <View style={{ alignItems: "center", marginTop: 30 }}>
                           <Text
                             style={{
                               fontSize: 15,
@@ -221,6 +230,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
+    marginTop: 30
   },
 });
 export default OtpRequestScreen;

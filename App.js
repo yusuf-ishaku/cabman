@@ -11,6 +11,10 @@ import MainApp from "./essentials/MainApp";
 import RiderDriverScreen from "./screens/RiderDriverScreen";
 import SignUporSignInScreen from "./screens/SignUporSignIn";
 import * as SplashScreen from "expo-splash-screen";
+import * as Location from "expo-location";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { setLocation } from "./data/slices/userLocation";
+import { store } from "./data/store";
 import {
   useFonts,
   Poppins_100Thin,
@@ -86,6 +90,35 @@ function Unprotected() {
       </Stack.Screen>
     </Stack.Navigator>
   );
+};
+
+function GetLocation(){
+  const [currentLocation, setCurrentLocation] = React.useState(null);
+  const [initialRegion, setInitialRegion] = React.useState(null);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    const getLocation = async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        console.log("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      dispatch(setLocation(location));
+      setCurrentLocation(location.coords);
+
+      setInitialRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005,
+      });
+    };
+
+    getLocation();
+  }, []);
+  return null
 }
 
 export default function App() {
@@ -109,6 +142,7 @@ export default function App() {
     Poppins_900Black,
     Poppins_900Black_Italic,
   });
+  
   const onLayoutRootView = React.useCallback(async () => {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
@@ -118,9 +152,12 @@ export default function App() {
     return <Text>Issue encountered</Text>;
   }
   return (
-    <NavigationContainer>
-      <Unprotected></Unprotected>
-    </NavigationContainer>
+    <Provider store={store}>
+      <GetLocation></GetLocation>
+      <NavigationContainer>
+        <Unprotected></Unprotected>
+      </NavigationContainer>
+    </Provider>
   );
 }
 

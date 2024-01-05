@@ -9,6 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView
 } from "react-native";
 // import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
@@ -35,13 +36,14 @@ const RegistrationScreen = ({ navigation }) => {
   }
   return (
     <>
-      <View style={{width, height, backgroundColor: "black"}}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <ScrollView style={styles.container}>
           <Text style={styles.header}>Personal Information</Text>
           <>
             <View style={styles.form}>
-              <Text style={styles.label}>Username</Text>
+              <Text style={styles.label}>Full Name</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Username"
@@ -110,7 +112,7 @@ const RegistrationScreen = ({ navigation }) => {
             </View>
           </>
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 };

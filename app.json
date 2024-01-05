@@ -25,7 +25,7 @@
       "package": "com.yuishaku.cabman",
       "config": {
         "googleMaps": {
-          "apiKey": " AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"
+          "apiKey": ""
         }
       }
     },

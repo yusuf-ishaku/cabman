@@ -20,7 +20,7 @@ const height = Dimensions.get("window").height;
 const paramOptions = {
   status: "Success",
   info: "You have successfully completed your registration. \n You can now book and enjoy your rides.",
-  nextPage: "MainApp",
+  nextPage: "HomeScreen",
   action: "OK"
 };
 const RegistrationScreen = ({ navigation }) => {

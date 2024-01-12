@@ -1,4 +1,4 @@
-import _default from "@expo/vector-icons/build/Feather";
+// import _default from "@expo/vector-icons/build/Feather";
 import { createSlice } from "@reduxjs/toolkit";
 
 const userLocationSlice = createSlice({

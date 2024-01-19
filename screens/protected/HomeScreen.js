@@ -3,34 +3,34 @@ import {
   View,
   Text,
   Dimensions,
-  Button,
   StatusBar,
   StyleSheet,
   Pressable,
-  TextInput,
   TouchableOpacity,
-  ScrollView,
-  Alert,
   Modal,
 } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import MapViewDirections from "react-native-maps-directions";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 // import * as Linking from "expo-linking";
-import * as Browser from "expo-web-browser";
+// import * as Browser from "expo-web-browser";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
 import { useSelector } from "react-redux";
 import { ModalComponent } from "../components/ModalComponent";
-// import { PlaceInput } from "../components/PlacesApi";
+import { ChooseRide } from "../components/ChooseRide";
 navigator.geolocation = require('react-native-geolocation-service');
+
+
 const HomeScreen = () => {
   const currentLocation = useSelector((state) => state.userLocation.location);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [destination, setDestination] = React.useState(null);
   const [origin, setOrigin] = React.useState(null);
+  const [rideSet, setRideSet] = React.useState(false);
+  const [dues, setDues] = React.useState(null);
   //   console.log(state);
   const initialRegion = {
     latitude: currentLocation.coords.latitude,
@@ -64,6 +64,10 @@ const HomeScreen = () => {
               mode={"DRIVING"}
               strokeWidth={3}
               strokeColor="red"
+              onReady={(distance, duration) => setDues({
+                distance,
+                duration
+              })}
               apikey={"AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"}
             />
             </>
@@ -123,6 +127,7 @@ const HomeScreen = () => {
         animationInTiming={500}
         animationOutTiming={1000}
         backdropTransitionInTiming={800}
+        backdropOpacity={.1}
         backdropTransitionOutTiming={800}
         style={{
           justifyContent: "flex-end",
@@ -159,7 +164,12 @@ const HomeScreen = () => {
               </Text>
             </Pressable>
           </View>
-          <ModalComponent></ModalComponent>
+          {
+            rideSet ?
+            <ChooseRide dues={dues}></ChooseRide>
+            :
+            <ModalComponent></ModalComponent>
+          }
         </View>
       </ReactNativeModal>
       <View
@@ -176,17 +186,24 @@ const HomeScreen = () => {
               flexDirection: 'row',
               justifyContent: 'space-evenly'
             }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+            onPress={() => {setModalVisible(true); setRideSet(true)}}
+              
+              >
                 <Text>Ride Now</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity
+            // onPress={() => {setModalVisible(true); setRideSet(!rideSet)}}
+              
+              >
                 <Text>Ride later</Text>
               </TouchableOpacity>
             </View>
             :
             <TouchableOpacity
             style={{ ...styles.submitButton }}
-            onPress={() => setModalVisible(true)}
+            onPress={() => {setModalVisible(true);}}
+
           >
             <Text
               style={{

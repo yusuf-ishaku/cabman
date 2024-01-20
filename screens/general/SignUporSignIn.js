@@ -24,8 +24,7 @@ const SignUporSignInScreen = ({ navigation, route }) => {
     };
     onLayoutRootView();
   });
-  const params = route.params;
-  const scheme = params.scheme;
+
   return (
     <>
       <ScrollView>

@@ -34,7 +34,7 @@ const RiderDriverScreen = ({ navigation }) => {
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <ImageBackground
           style={{ ...styles.container, backgroundFit: "cover" }}
-          source={require("../assets/appimages/bgImage.jpg")}
+          source={require("../../assets/appimages/bgImage.jpg")}
         >
           <LogoComponent style={{ marginTop: height / 4 }}></LogoComponent>
           <View

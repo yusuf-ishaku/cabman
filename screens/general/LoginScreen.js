@@ -19,7 +19,8 @@ const height = Dimensions.get("window").height;
 const LoginScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
-  const scheme = useSelector((state) => state.scheme.value);
+  const scheme = useSelector((state) => state.scheme.scheme);
+  console.log(scheme);
 
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
@@ -74,10 +75,11 @@ const LoginScreen = ({ navigation, route }) => {
             </Text>
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() =>
-                scheme === "rider"
-                  ? navigation.navigate("HomeScreenRider")
-                  : navigation.navigate("HomeScreenDriver")
+              onPress={() =>{
+                if(scheme === "rider")
+                 {navigation.navigate("HomeScreenRider")}
+                else {navigation.navigate("HomeScreenDriver")}
+              }
               }
             >
               <Text

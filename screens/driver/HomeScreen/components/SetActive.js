@@ -6,11 +6,11 @@ export const SetActive = ({ styles }) => {
       style={{
         backgroundColor: "white",
         borderRadius: 9999,
-        width: 40,
+        width: 150,
         ...styles,
       }}
     >
-      <Text>This is the set active button</Text>
+      <Text>This is the set active button not styled yet</Text>
     </View>
   );
 };

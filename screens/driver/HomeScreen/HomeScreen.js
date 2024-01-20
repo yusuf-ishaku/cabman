@@ -17,7 +17,7 @@ import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
 import { useSelector } from "react-redux";
 import { ModalComponent } from "./components/ModalComponent";
-import { ChooseRide } from "../components/ChooseRide";
+import { ChooseRide } from "./components/ChooseRide";
 import { SetActive } from "./components/SetActive";
 
 const HomeScreen = () => {
@@ -70,8 +70,8 @@ const HomeScreen = () => {
               />
             </>
           )}
-          <SetActive styles={{ position: "absolute", top: 10 }}></SetActive>
         </MapView>
+        <SetActive styles={{ position: "absolute", top: 10, left: 10 }}></SetActive>
       </View>
       <ReactNativeModal
         isVisible={modalVisible}

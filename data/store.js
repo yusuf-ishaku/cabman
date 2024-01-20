@@ -5,6 +5,6 @@ import scheme from "./slices/scheme";
 export const store = configureStore({
     reducer: {
         userLocation: userLocationSlice,
-        schemeSlice: scheme,
+        scheme: scheme,
     },
 });

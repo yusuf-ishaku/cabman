@@ -11,17 +11,14 @@ import {
 } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import MapViewDirections from "react-native-maps-directions";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
-// import * as Linking from "expo-linking";
-// import * as Browser from "expo-web-browser";
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
 import { useSelector } from "react-redux";
-import { ModalComponent } from "../components/ModalComponent";
+import { ModalComponent } from "./components/ModalComponent";
 import { ChooseRide } from "../components/ChooseRide";
-navigator.geolocation = require('react-native-geolocation-service');
+// navigator.geolocation = require('react-native-geolocation-service');
 
 
 const HomeScreen = () => {
@@ -71,56 +68,8 @@ const HomeScreen = () => {
               apikey={"AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"}
             />
             </>
-            
           )}
         </MapView>
-        <View
-          style={{
-            position: "absolute",
-            justifyContent: "flex-start",
-            left: 0,
-            right: 0,
-            top: 10,
-            marginHorizontal: 5,
-            // height: 100,
-          }}
-        >
-          <GooglePlacesAutocomplete
-            fetchDetails={true}
-            placeholder="Your location"
-            onPress={(data, details) => {
-              // console.log(data, details);
-              // console.log(details.geometry.location);
-              setOrigin({latitude: details.geometry.location.lat, longitude: details.geometry.location.lng});
-            }}
-            GooglePlacesDetailsQuery={{ fields: "geometry" }}
-            query={{
-              key: "AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0",
-              language: "en",
-              components: "country:ng",
-            }}
-            // currentLocation={true}
-            // autoFillOnNotFound={true}
-            styles={{ position: "absolute" }}
-            predefinedPlaces={[{description: "Current Location", geometry: { location: {lat: currentLocation.coords.latitude, lng: currentLocation.coords.longitude}}}]}
-          />
-          <GooglePlacesAutocomplete
-            fetchDetails={true}
-            GooglePlacesDetailsQuery={{ fields: "geometry" }}
-            placeholder="Destination"
-            onPress={(data, details) => {
-              // console.log(data, details);
-              // console.log(details.geometry.location);
-              setDestination({latitude:details.geometry.location.lat, longitude: details.geometry.location.lng});
-            }}
-            query={{
-              key: "AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0",
-              language: "en",
-              components: "country:ng",
-            }}
-            // autoFillOnNotFound={true}
-          />
-        </View>
       </View>
       <ReactNativeModal
         isVisible={modalVisible}

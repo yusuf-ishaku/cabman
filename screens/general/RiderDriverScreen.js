@@ -39,7 +39,7 @@ const RiderDriverScreen = ({ navigation }) => {
           <View style={{width, justifyContent: "center", alignItems: "center"}}>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => navigation.navigate("SignUporSignInScreen")}
+            onPress={() => navigation.navigate("SignUporSignInScreen", {scheme: "rider"})}
           >
             <Text
               style={{
@@ -55,7 +55,7 @@ const RiderDriverScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{...styles.submitButton, backgroundColor: 'white', borderColor: 'blue', borderWidth: 1, color: 'blue'}}
-            onPress={() => navigation.navigate("SignSignUporSignInScreen")}
+            onPress={() => navigation.navigate("SignUporSignInScreen", {scheme: "driver"})}
           >
             <Text
               style={{

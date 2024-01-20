@@ -17,13 +17,15 @@ import { LogoComponent } from "./components/LogoComponent";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const SignUporSignInScreen = ({ navigation }) => {
+const SignUporSignInScreen = ({ navigation, route }) => {
   React.useEffect(() => {
     const onLayoutRootView = async () => {
       await SplashScreen.hideAsync();
     };
     onLayoutRootView();
   });
+  const params = route.params;
+  const scheme = params.scheme;
   return (
     <>
       <ScrollView>
@@ -57,7 +59,7 @@ const SignUporSignInScreen = ({ navigation }) => {
           </Text>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => navigation.navigate("Login")}
+            onPress={() => navigation.navigate("Login", {scheme})}
           >
             <Text
               style={{
@@ -88,7 +90,7 @@ const SignUporSignInScreen = ({ navigation }) => {
               borderWidth: 1,
               color: "blue",
             }}
-            onPress={() => navigation.navigate("SignUp")}
+            onPress={() => navigation.navigate("SignUp", {scheme})}
           >
             <Text
               style={{

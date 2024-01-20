@@ -3,13 +3,14 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoginScreen from "./screens/LoginScreen";
-import OtpRequestScreen from "./screens/OtpRequestScreen";
-import HomeScreen from "./screens/protected/HomeScreen";
-import RegistrationScreen from "./screens/RegistrationScreen";
+import LoginScreen from "./screens/general/LoginScreen";
+import OtpRequestScreen from "./screens/general/OtpRequestScreen";
+import HomeScreenRider from "./screens/rider/HomeScreen/HomeScreen";
+import HomeScreenDriver from "./screens/driver/HomeScreen/HomeScreen";
+import RegistrationScreen from "./screens/general/RegistrationScreen";
 // import MainApp from "./essentials/MainApp";
-import RiderDriverScreen from "./screens/RiderDriverScreen";
-import SignUporSignInScreen from "./screens/SignUporSignIn";
+import RiderDriverScreen from "./screens/general/RiderDriverScreen";
+import SignUporSignInScreen from "./screens/general/SignUporSignIn";
 import * as SplashScreen from "expo-splash-screen";
 import * as Location from "expo-location";
 import { Provider, useDispatch, useSelector } from "react-redux";
@@ -36,7 +37,7 @@ import {
   Poppins_900Black,
   Poppins_900Black_Italic,
 } from "@expo-google-fonts/poppins";
-import SuccessScreen from "./screens/SuccessScreen";
+import SuccessScreen from "./screens/general/SuccessScreen";
 
 const Stack = createNativeStackNavigator();
 SplashScreen.preventAutoHideAsync();
@@ -55,20 +56,21 @@ function Unprotected() {
         options={{ title: "Request OTP", headerShown: false }}
       ></Stack.Screen>
       <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{ title: "Home Screen", headerShown: false }}
+        name="HomeScreenRider"
+        component={HomeScreenRider}
+        options={{ title: "Home Screen Rider", headerShown: false }}
       ></Stack.Screen>
+      <Stack.Screen
+      name="HomeScreenDriver"
+      component={HomeScreenDriver}
+      options={{title: "Driver Home Screen", headerShown: false}}
+      >
+      </Stack.Screen>
       <Stack.Screen
         name="Register"
         component={RegistrationScreen}
         options={{ title: "Register", headerShown: false }}
       ></Stack.Screen>
-      {/* <Stack.Screen
-        name="MainApp"
-        component={MainApp}
-        options={{ title: "MainApp", headerShown: false }}
-      ></Stack.Screen> */}
       <Stack.Screen
         name="RiderDriverScreen"
         component={RiderDriverScreen}
@@ -79,14 +81,12 @@ function Unprotected() {
       component={SignUporSignInScreen}
       options={{title: "Sign Up or sign in screen", headerShown: false}}
       >
-
       </Stack.Screen>
       <Stack.Screen
       name="SuccessScreen"
       component={SuccessScreen}
       options={{title: "Success", headerShown: false}}
       >
-
       </Stack.Screen>
     </Stack.Navigator>
   );
@@ -107,7 +107,6 @@ function GetLocation(){
       let location = await Location.getCurrentPositionAsync({});
       dispatch(setLocation(location));
       setCurrentLocation(location.coords);
-
       setInitialRegion({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,

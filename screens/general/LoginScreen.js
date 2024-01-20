@@ -17,7 +17,7 @@ import { LogoComponent } from "./components/LogoComponent";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   function handleInputValue(phoneNumber) {
@@ -27,6 +27,8 @@ const LoginScreen = ({ navigation }) => {
   function handleSelectedCountry(country) {
     setSelectedCountry(country);
   }
+
+  const scheme = route.params.scheme;
   return (
     <>
       <ScrollView>
@@ -67,7 +69,7 @@ const LoginScreen = ({ navigation }) => {
             </Text>
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() => navigation.navigate("HomeScreen")}
+              onPress={() =>  scheme === "rider" ? navigation.navigate("HomeScreenRider") : navigation.navigate("HomeScreenDriver")}
             >
               <Text
                 style={{
@@ -82,13 +84,6 @@ const LoginScreen = ({ navigation }) => {
               </Text>
             </TouchableOpacity>
           </View>
-          {/* <View style={{ flexDirection: "row", alignItems: "center", marginHorizontal: 10, marginTop: 10}}>
-              <View style={{ flex: 1, height: 2, backgroundColor: '#D3D3D3'}} />
-              <View>
-                <Text style={{ width: 50, textAlign: "center", color: 'black', fontFamily: 'Poppins_400Regular' }}>Or</Text>
-              </View>
-              <View style={{ flex: 1, height: 2, backgroundColor: '#D3D3D3' }} />
-            </View> */}
           <View style={{ alignItems: "center" }}>
             <Text
               style={{
@@ -99,7 +94,7 @@ const LoginScreen = ({ navigation }) => {
             >
               Don't have an account?{" "}
               <Text
-                onPress={() => navigation.navigate("SignUp")}
+                onPress={() =>  navigation.navigate("SignUp", {scheme})}
                 style={{ color: "blue" }}
               >
                Sign Up

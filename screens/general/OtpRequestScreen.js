@@ -23,17 +23,17 @@ const paramOptions = {
   nextPage: "Register",
   action: "Continue"
 };
-const OtpRequestScreen = ({ navigation }) => {
+const OtpRequestScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const [otpRequested, setOtpRequested] = React.useState(false);
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
   }
-
   function handleSelectedCountry(country) {
     setSelectedCountry(country);
-  }
+  };
+  const scheme = route.params.scheme;
   return (
     <>
       <ScrollView>
@@ -68,7 +68,7 @@ const OtpRequestScreen = ({ navigation }) => {
                 </Text>
                 <TouchableOpacity
                   style={styles.submitButton}
-                  onPress={() => navigation.navigate("SuccessScreen", paramOptions)}
+                  onPress={() => navigation.navigate("SuccessScreen", {scheme, ...paramOptions})}
                 >
                   <Text
                     style={{
@@ -149,7 +149,7 @@ const OtpRequestScreen = ({ navigation }) => {
                           >
                             Already have an account?{" "}
                             <Text
-                              onPress={() => navigation.navigate("Login")}
+                              onPress={() => navigation.navigate("Login", {scheme})}
                               style={{ color: "blue" }}
                             >
                               Sign In

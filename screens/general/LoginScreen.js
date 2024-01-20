@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const scheme = useSelector((state) => state.scheme.value);
-  
+
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
   }
@@ -34,8 +34,10 @@ const LoginScreen = ({ navigation, route }) => {
       <ScrollView>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={styles.container}>
-          <LogoComponent style={{alignSelf: 'center', marginTop: 40}}></LogoComponent>
-          <View style={{marginTop: 50,...styles.form}}>
+          <LogoComponent
+            style={{ alignSelf: "center", marginTop: 40 }}
+          ></LogoComponent>
+          <View style={{ marginTop: 50, ...styles.form }}>
             <Text style={styles.label}>Phone Number</Text>
             <View
               style={{
@@ -54,7 +56,10 @@ const LoginScreen = ({ navigation, route }) => {
               />
             </View>
             <Text style={styles.label}>Password</Text>
-            <TextInput style={styles.input} placeholder="Enter Password"></TextInput>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter Password"
+            ></TextInput>
             <Text
               style={{
                 textAlign: "right",
@@ -69,7 +74,11 @@ const LoginScreen = ({ navigation, route }) => {
             </Text>
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() =>  scheme === "rider" ? navigation.navigate("HomeScreenRider") : navigation.navigate("HomeScreenDriver")}
+              onPress={() =>
+                scheme === "rider"
+                  ? navigation.navigate("HomeScreenRider")
+                  : navigation.navigate("HomeScreenDriver")
+              }
             >
               <Text
                 style={{
@@ -94,10 +103,10 @@ const LoginScreen = ({ navigation, route }) => {
             >
               Don't have an account?{" "}
               <Text
-                onPress={() =>  navigation.navigate("SignUp")}
+                onPress={() => navigation.navigate("SignUp")}
                 style={{ color: "blue" }}
               >
-               Sign Up
+                Sign Up
               </Text>
             </Text>
           </View>

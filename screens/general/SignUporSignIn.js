@@ -31,7 +31,13 @@ const SignUporSignInScreen = ({ navigation, route }) => {
       <ScrollView>
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={styles.container}>
-          <View style={{alignItems: 'center', marginBottom: height/5, marginTop: 40}}>
+          <View
+            style={{
+              alignItems: "center",
+              marginBottom: height / 5,
+              marginTop: 40,
+            }}
+          >
             <LogoComponent style={{ height: 60 }}></LogoComponent>
             <Text
               style={{
@@ -39,7 +45,7 @@ const SignUporSignInScreen = ({ navigation, route }) => {
                 textAlign: "center",
                 marginHorizontal: 10,
                 marginBottom: 20,
-                paddingHorizontal: 20
+                paddingHorizontal: 20,
               }}
             >
               Make your day more efficient and rewarding with any of our

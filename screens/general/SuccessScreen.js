@@ -29,7 +29,7 @@ const SuccessScreen = ({ route, navigation }) => {
             fontSize: 16,
             textAlign: "center",
             marginVertical: 10,
-            paddingHorizontal: 20
+            paddingHorizontal: 20,
           }}
         >
           {params.info}
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    marginTop: 28
+    marginTop: 28,
   },
 });
 

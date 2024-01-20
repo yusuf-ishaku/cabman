@@ -20,9 +20,8 @@ import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
 import { useSelector } from "react-redux";
 import { ModalComponent } from "./components/ModalComponent";
-import { ChooseRide } from "../../general/components/ChooseRide";
-navigator.geolocation = require('react-native-geolocation-service');
-
+import { ChooseRide } from "./components/ChooseRide";
+navigator.geolocation = require("react-native-geolocation-service");
 
 const HomeScreen = () => {
   const currentLocation = useSelector((state) => state.userLocation.location);
@@ -56,22 +55,23 @@ const HomeScreen = () => {
           />
           {destination && origin && (
             <>
-            <Marker coordinate={origin} title="Starting point"/>
-            <Marker coordinate={destination} title="Drop point"/>
-            <MapViewDirections
-              origin={origin}
-              destination={destination}
-              mode={"DRIVING"}
-              strokeWidth={3}
-              strokeColor="red"
-              onReady={(distance, duration) => setDues({
-                distance,
-                duration
-              })}
-              apikey={"AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"}
-            />
+              <Marker coordinate={origin} title="Starting point" />
+              <Marker coordinate={destination} title="Drop point" />
+              <MapViewDirections
+                origin={origin}
+                destination={destination}
+                mode={"DRIVING"}
+                strokeWidth={3}
+                strokeColor="red"
+                onReady={(distance, duration) =>
+                  setDues({
+                    distance,
+                    duration,
+                  })
+                }
+                apikey={"AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"}
+              />
             </>
-            
           )}
         </MapView>
         <View
@@ -91,7 +91,10 @@ const HomeScreen = () => {
             onPress={(data, details) => {
               // console.log(data, details);
               // console.log(details.geometry.location);
-              setOrigin({latitude: details.geometry.location.lat, longitude: details.geometry.location.lng});
+              setOrigin({
+                latitude: details.geometry.location.lat,
+                longitude: details.geometry.location.lng,
+              });
             }}
             GooglePlacesDetailsQuery={{ fields: "geometry" }}
             query={{
@@ -102,7 +105,17 @@ const HomeScreen = () => {
             // currentLocation={true}
             // autoFillOnNotFound={true}
             styles={{ position: "absolute" }}
-            predefinedPlaces={[{description: "Current Location", geometry: { location: {lat: currentLocation.coords.latitude, lng: currentLocation.coords.longitude}}}]}
+            predefinedPlaces={[
+              {
+                description: "Current Location",
+                geometry: {
+                  location: {
+                    lat: currentLocation.coords.latitude,
+                    lng: currentLocation.coords.longitude,
+                  },
+                },
+              },
+            ]}
           />
           <GooglePlacesAutocomplete
             fetchDetails={true}
@@ -111,7 +124,10 @@ const HomeScreen = () => {
             onPress={(data, details) => {
               // console.log(data, details);
               // console.log(details.geometry.location);
-              setDestination({latitude:details.geometry.location.lat, longitude: details.geometry.location.lng});
+              setDestination({
+                latitude: details.geometry.location.lat,
+                longitude: details.geometry.location.lng,
+              });
             }}
             query={{
               key: "AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0",
@@ -127,7 +143,7 @@ const HomeScreen = () => {
         animationInTiming={500}
         animationOutTiming={1000}
         backdropTransitionInTiming={800}
-        backdropOpacity={.1}
+        backdropOpacity={0.1}
         backdropTransitionOutTiming={800}
         style={{
           justifyContent: "flex-end",
@@ -164,12 +180,11 @@ const HomeScreen = () => {
               </Text>
             </Pressable>
           </View>
-          {
-            rideSet ?
+          {rideSet ? (
             <ChooseRide dues={dues}></ChooseRide>
-            :
+          ) : (
             <ModalComponent></ModalComponent>
-          }
+          )}
         </View>
       </ReactNativeModal>
       <View
@@ -180,30 +195,33 @@ const HomeScreen = () => {
           backgroundColor: "white",
         }}
       >
-        {
-          (origin && destination) ? 
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly'
-            }}>
-              <TouchableOpacity
-            onPress={() => {setModalVisible(true); setRideSet(true)}}
-              
-              >
-                <Text>Ride Now</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-            // onPress={() => {setModalVisible(true); setRideSet(!rideSet)}}
-              
-              >
-                <Text>Ride later</Text>
-              </TouchableOpacity>
-            </View>
-            :
+        {origin && destination ? (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
             <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true);
+                setRideSet(true);
+              }}
+            >
+              <Text>Ride Now</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            // onPress={() => {setModalVisible(true); setRideSet(!rideSet)}}
+            >
+              <Text>Ride later</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity
             style={{ ...styles.submitButton }}
-            onPress={() => {setModalVisible(true);}}
-
+            onPress={() => {
+              setModalVisible(true);
+            }}
           >
             <Text
               style={{
@@ -217,8 +235,7 @@ const HomeScreen = () => {
               Pay Bills and Utilities
             </Text>
           </TouchableOpacity>
-        }
-       
+        )}
       </View>
     </View>
   );

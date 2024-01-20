@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Keyboard
+  Keyboard,
 } from "react-native";
 // import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
@@ -21,7 +21,7 @@ const paramOptions = {
   status: "Verified",
   info: "You have successfully verified your phone number. You can use your phone number as your username. \n Continue to enter your personal information and complete the registration process",
   nextPage: "Register",
-  action: "Continue"
+  action: "Continue",
 };
 const OtpRequestScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
@@ -32,7 +32,7 @@ const OtpRequestScreen = ({ navigation, route }) => {
   }
   function handleSelectedCountry(country) {
     setSelectedCountry(country);
-  };
+  }
   const scheme = route.params.scheme;
   return (
     <>
@@ -40,35 +40,63 @@ const OtpRequestScreen = ({ navigation, route }) => {
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <View style={styles.container}>
           {/* <Text style={styles.header}>Cabman</Text> */}
-          {otpRequested ?  (
+          {otpRequested ? (
             <>
               <View style={{ marginTop: 14 }}>
-                <Text style={{...styles.header2, textAlign: 'center', marginTop: 40, marginBottom: 50}}>Verify code</Text>
+                <Text
+                  style={{
+                    ...styles.header2,
+                    textAlign: "center",
+                    marginTop: 40,
+                    marginBottom: 50,
+                  }}
+                >
+                  Verify code
+                </Text>
               </View>
               <View style={{ marginTop: 14 }}>
-                <Text style={{textAlign: 'center', fontWeight: 'normal', fontFamily: 'Poppins_400Regular', fontSize: 16, marginHorizontal: 10}}>Please enter the verification code received via Voice OTP on your phone: 89899998989</Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontWeight: "normal",
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 16,
+                    marginHorizontal: 10,
+                  }}
+                >
+                  Please enter the verification code received via Voice OTP on
+                  your phone: 89899998989
+                </Text>
               </View>
               <View style={styles.form}>
                 <Text style={styles.label}>Verify</Text>
-            <TextInput onChangeText={newText => {
-              if(newText.length > 3){
-                Keyboard.dismiss();
-              }
-            }} keyboardType="numeric" style={{textAlign: 'center', ...styles.input}} placeholder="----" ></TextInput>
-                <Text 
-                 style={{
-                  color: "black",
-                  textAlign: "center",
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 16,
-                  marginVertical: 16
-                }}
+                <TextInput
+                  onChangeText={(newText) => {
+                    if (newText.length > 3) {
+                      Keyboard.dismiss();
+                    }
+                  }}
+                  keyboardType="numeric"
+                  style={{ textAlign: "center", ...styles.input }}
+                  placeholder="----"
+                ></TextInput>
+                <Text
+                  style={{
+                    color: "black",
+                    textAlign: "center",
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 16,
+                    marginVertical: 16,
+                  }}
                 >
-                  Didn't get a code? <Text style={{color: "blue"}}>Try again</Text>
+                  Didn't get a code?{" "}
+                  <Text style={{ color: "blue" }}>Try again</Text>
                 </Text>
                 <TouchableOpacity
                   style={styles.submitButton}
-                  onPress={() => navigation.navigate("SuccessScreen", paramOptions)}
+                  onPress={() =>
+                    navigation.navigate("SuccessScreen", paramOptions)
+                  }
                 >
                   <Text
                     style={{
@@ -82,83 +110,84 @@ const OtpRequestScreen = ({ navigation, route }) => {
                     Verify
                   </Text>
                 </TouchableOpacity>
-                
               </View>
             </>
-          )
-                    :(
-                      <>
-                        <View style={{ marginTop: 14, marginBottom: 50, textAlign: 'center' }}>
-                          <Text style={{textAlign: 'center',...styles.header2}}>Phone Verification</Text>
-                        </View>
-                        <View style={styles.form}>
-                          <Text style={styles.label}>Phone Number</Text>
-                          <View
-                            style={{
-                              marginHorizontal: 10,
-                              marginBottom: 10,
-                              fontFamily: styles.input.fontFamily,
-                            }}
-                          >
-                            <PhoneInput
-                              defaultValue="+234"
-                              value={inputValue}
-                              placeholder="Phone number"
-                              onChangePhoneNumber={handleInputValue}
-                              selectedCountry={selectedCountry}
-                              onChangeSelectedCountry={handleSelectedCountry}
-                            />
-                          </View>
-                          <TouchableOpacity
-                            style={styles.submitButton}
-                            onPress={() => setOtpRequested(true)}
-                          >
-                            <Text
-                              style={{
-                                color: "white",
-                                textAlign: "center",
-                                fontFamily: "Poppins_400Regular",
-                                fontSize: 16,
-                                textAlignVertical: "center",
-                              }}
-                            >
-                              Continue
-                            </Text>
-                          </TouchableOpacity>
-                          <Text
-                              style={{
-                                marginTop: 20,
-                                marginVertical: 14,
-                                fontFamily: "Poppins_400Regular",
-                                textAlign: 'center',
-                                width: width * 4/5,
-                                alignSelf: 'center'
-                              }}
-                            >
-                              You will receive a voice OTP (Verification code). Message
-                              and data rates may apply.
-                            </Text>
-                        </View>
-                        <View style={{ alignItems: "center", marginTop: 30 }}>
-                          <Text
-                            style={{
-                              fontSize: 15,
-                              marginTop: 10,
-                              fontFamily: "Poppins_400Regular",
-                            }}
-                          >
-                            Already have an account?{" "}
-                            <Text
-                              onPress={() => navigation.navigate("Login")}
-                              style={{ color: "blue" }}
-                            >
-                              Sign In
-                            </Text>
-                          </Text>
-                        </View>
-                      </>
-                    ) 
-        }
+          ) : (
+            <>
+              <View
+                style={{ marginTop: 14, marginBottom: 50, textAlign: "center" }}
+              >
+                <Text style={{ textAlign: "center", ...styles.header2 }}>
+                  Phone Verification
+                </Text>
+              </View>
+              <View style={styles.form}>
+                <Text style={styles.label}>Phone Number</Text>
+                <View
+                  style={{
+                    marginHorizontal: 10,
+                    marginBottom: 10,
+                    fontFamily: styles.input.fontFamily,
+                  }}
+                >
+                  <PhoneInput
+                    defaultValue="+234"
+                    value={inputValue}
+                    placeholder="Phone number"
+                    onChangePhoneNumber={handleInputValue}
+                    selectedCountry={selectedCountry}
+                    onChangeSelectedCountry={handleSelectedCountry}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={styles.submitButton}
+                  onPress={() => setOtpRequested(true)}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      fontFamily: "Poppins_400Regular",
+                      fontSize: 16,
+                      textAlignVertical: "center",
+                    }}
+                  >
+                    Continue
+                  </Text>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    marginTop: 20,
+                    marginVertical: 14,
+                    fontFamily: "Poppins_400Regular",
+                    textAlign: "center",
+                    width: (width * 4) / 5,
+                    alignSelf: "center",
+                  }}
+                >
+                  You will receive a voice OTP (Verification code). Message and
+                  data rates may apply.
+                </Text>
+              </View>
+              <View style={{ alignItems: "center", marginTop: 30 }}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    marginTop: 10,
+                    fontFamily: "Poppins_400Regular",
+                  }}
+                >
+                  Already have an account?{" "}
+                  <Text
+                    onPress={() => navigation.navigate("Login")}
+                    style={{ color: "blue" }}
+                  >
+                    Sign In
+                  </Text>
+                </Text>
+              </View>
+            </>
+          )}
         </View>
       </ScrollView>
     </>
@@ -230,7 +259,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 5,
-    marginTop: 30
+    marginTop: 30,
   },
 });
 export default OtpRequestScreen;

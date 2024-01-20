@@ -9,7 +9,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -18,7 +18,7 @@ const height = Dimensions.get("window").height;
 
 const RegistrationScreen = ({ navigation }) => {
   const scheme = useSelector((state) => state.scheme.value);
-  
+
   const paramOptions = {
     status: "Success",
     info: "You have successfully completed your registration. \n You can now book and enjoy your rides.",
@@ -38,8 +38,10 @@ const RegistrationScreen = ({ navigation }) => {
   }
   return (
     <>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
         <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
         <ScrollView style={styles.container}>
           <Text style={styles.header}>Personal Information</Text>
@@ -51,9 +53,15 @@ const RegistrationScreen = ({ navigation }) => {
                 placeholder="Username"
               ></TextInput>
               <Text style={styles.label}>Address</Text>
-              <TextInput style={styles.input} placeholder="Enter Address"></TextInput>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter Address"
+              ></TextInput>
               <Text style={styles.label}>City</Text>
-              <TextInput style={styles.input} placeholder="Enter City"></TextInput>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter City"
+              ></TextInput>
               <Text style={styles.label}>Country</Text>
               <TextInput
                 style={styles.input}
@@ -69,7 +77,7 @@ const RegistrationScreen = ({ navigation }) => {
                 style={styles.input}
                 placeholder="Add Profile Picture"
               ></TextInput>
-               <Text style={styles.label}>Referral code</Text>
+              <Text style={styles.label}>Referral code</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Enter Referral Code (Optional)"
@@ -86,7 +94,9 @@ const RegistrationScreen = ({ navigation }) => {
               ></TextInput>
               <TouchableOpacity
                 style={styles.submitButton}
-                onPress={() => navigation.navigate("SuccessScreen", paramOptions)}
+                onPress={() =>
+                  navigation.navigate("SuccessScreen", paramOptions)
+                }
               >
                 <Text
                   style={{
@@ -101,16 +111,16 @@ const RegistrationScreen = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
               <Text
-            style={{
-              color: "white",
-              textAlign: "center",
-              fontFamily: "Poppins_400Regular",
-              fontSize: 16,
-              textTransform: "uppercase",
-            }}
-          >
-           By signing up, you agree to our terms of use and privacy policy.
-          </Text>
+                style={{
+                  color: "white",
+                  textAlign: "center",
+                  fontFamily: "Poppins_400Regular",
+                  fontSize: 16,
+                  textTransform: "uppercase",
+                }}
+              >
+                By signing up, you agree to our terms of use and privacy policy.
+              </Text>
             </View>
           </>
         </ScrollView>

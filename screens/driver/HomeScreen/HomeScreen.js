@@ -20,8 +20,6 @@ import { ModalComponent } from "./components/ModalComponent";
 import { ChooseRide } from "../components/ChooseRide";
 import { SetActive } from "./components/SetActive";
 
-
-
 const HomeScreen = () => {
   const currentLocation = useSelector((state) => state.userLocation.location);
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -54,26 +52,25 @@ const HomeScreen = () => {
           />
           {destination && origin && (
             <>
-            <Marker coordinate={origin} title="Starting point"/>
-            <Marker coordinate={destination} title="Drop point"/>
-            <MapViewDirections
-              origin={origin}
-              destination={destination}
-              mode={"DRIVING"}
-              strokeWidth={3}
-              strokeColor="red"
-              onReady={(distance, duration) => setDues({
-                distance,
-                duration
-              })}
-              apikey={"AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"}
-            />
+              <Marker coordinate={origin} title="Starting point" />
+              <Marker coordinate={destination} title="Drop point" />
+              <MapViewDirections
+                origin={origin}
+                destination={destination}
+                mode={"DRIVING"}
+                strokeWidth={3}
+                strokeColor="red"
+                onReady={(distance, duration) =>
+                  setDues({
+                    distance,
+                    duration,
+                  })
+                }
+                apikey={"AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0"}
+              />
             </>
           )}
-          <SetActive
-          styles={{position: "absolute", top: 10}}
-          >
-          </SetActive>
+          <SetActive styles={{ position: "absolute", top: 10 }}></SetActive>
         </MapView>
       </View>
       <ReactNativeModal
@@ -81,7 +78,7 @@ const HomeScreen = () => {
         animationInTiming={500}
         animationOutTiming={1000}
         backdropTransitionInTiming={800}
-        backdropOpacity={.1}
+        backdropOpacity={0.1}
         backdropTransitionOutTiming={800}
         style={{
           justifyContent: "flex-end",
@@ -118,12 +115,8 @@ const HomeScreen = () => {
               </Text>
             </Pressable>
           </View>
-          {
-            rideSet ?
-            <ChooseRide dues={dues}></ChooseRide>
-            :
-            <ModalComponent></ModalComponent>
-          }
+
+          <ModalComponent></ModalComponent>
         </View>
       </ReactNativeModal>
       <View
@@ -134,30 +127,33 @@ const HomeScreen = () => {
           backgroundColor: "white",
         }}
       >
-        {
-          (origin && destination) ? 
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly'
-            }}>
-              <TouchableOpacity
-            onPress={() => {setModalVisible(true); setRideSet(true)}}
-              
-              >
-                <Text>Ride Now</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-            // onPress={() => {setModalVisible(true); setRideSet(!rideSet)}}
-              
-              >
-                <Text>Ride later</Text>
-              </TouchableOpacity>
-            </View>
-            :
+        {origin && destination ? (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-evenly",
+            }}
+          >
             <TouchableOpacity
+              onPress={() => {
+                setModalVisible(true);
+                setRideSet(true);
+              }}
+            >
+              <Text>Ride Now</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            // onPress={() => {setModalVisible(true); setRideSet(!rideSet)}}
+            >
+              <Text>Ride later</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TouchableOpacity
             style={{ ...styles.submitButton }}
-            onPress={() => {setModalVisible(true);}}
-
+            onPress={() => {
+              setModalVisible(true);
+            }}
           >
             <Text
               style={{
@@ -171,8 +167,7 @@ const HomeScreen = () => {
               Pay Bills and Utilities
             </Text>
           </TouchableOpacity>
-        }
-       
+        )}
       </View>
     </View>
   );

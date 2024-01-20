@@ -59,7 +59,7 @@ const SignUporSignInScreen = ({ navigation, route }) => {
           </Text>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => navigation.navigate("Login", {scheme})}
+            onPress={() => navigation.navigate("Login")}
           >
             <Text
               style={{
@@ -90,7 +90,7 @@ const SignUporSignInScreen = ({ navigation, route }) => {
               borderWidth: 1,
               color: "blue",
             }}
-            onPress={() => navigation.navigate("SignUp", {scheme})}
+            onPress={() => navigation.navigate("SignUp")}
           >
             <Text
               style={{

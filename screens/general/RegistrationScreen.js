@@ -11,22 +11,24 @@ import {
   ScrollView,
   KeyboardAvoidingView
 } from "react-native";
-// import { useFonts } from 'expo-font';
-import PhoneInput from "react-native-international-phone-number";
-// import PhoneInput from "react-native-phone-number-input";
+import { useSelector } from "react-redux";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
-const paramOptions = {
-  status: "Success",
-  info: "You have successfully completed your registration. \n You can now book and enjoy your rides.",
-  nextPage: "HomeScreen",
-  action: "OK"
-};
+
 const RegistrationScreen = ({ navigation }) => {
+  const scheme = useSelector((state) => state.scheme.value);
+  
+  const paramOptions = {
+    status: "Success",
+    info: "You have successfully completed your registration. \n You can now book and enjoy your rides.",
+    nextPage: scheme === "rider" ? "HomeScreenRider" : "HomeScreenDriver",
+    action: "OK",
+  };
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const [otpRequested, setOtpRequested] = React.useState(false);
+
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
   }

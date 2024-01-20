@@ -15,6 +15,8 @@ import { LogoComponent } from "./components/LogoComponent";
 // import { useFonts } from 'expo-font';
 // import PhoneInput from "react-native-phone-number-input";
 import * as SplashScreen from "expo-splash-screen";
+import { useDispatch } from "react-redux";
+import { setScheme } from "../../data/slices/scheme";
 
 
 const width = Dimensions.get("window").width;
@@ -25,7 +27,8 @@ const RiderDriverScreen = ({ navigation }) => {
       await SplashScreen.hideAsync();
     }
     onLayoutRootView();
-  })
+  });
+  const dispatch = useDispatch();
   return (
     <>
       <ScrollView >
@@ -39,7 +42,7 @@ const RiderDriverScreen = ({ navigation }) => {
           <View style={{width, justifyContent: "center", alignItems: "center"}}>
           <TouchableOpacity
             style={styles.submitButton}
-            onPress={() => navigation.navigate("SignUporSignInScreen", {scheme: "rider"})}
+            onPress={() => { dispatch(setScheme("rider")); navigation.navigate("SignUporSignInScreen");}}
           >
             <Text
               style={{
@@ -55,7 +58,7 @@ const RiderDriverScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={{...styles.submitButton, backgroundColor: 'white', borderColor: 'blue', borderWidth: 1, color: 'blue'}}
-            onPress={() => navigation.navigate("SignUporSignInScreen", {scheme: "driver"})}
+            onPress={() => {dispatch(setScheme("driver")); navigation.navigate("SignUporSignInScreen");}}
           >
             <Text
               style={{

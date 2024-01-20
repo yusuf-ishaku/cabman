@@ -68,7 +68,7 @@ const OtpRequestScreen = ({ navigation, route }) => {
                 </Text>
                 <TouchableOpacity
                   style={styles.submitButton}
-                  onPress={() => navigation.navigate("SuccessScreen", {scheme, ...paramOptions})}
+                  onPress={() => navigation.navigate("SuccessScreen", paramOptions)}
                 >
                   <Text
                     style={{
@@ -149,7 +149,7 @@ const OtpRequestScreen = ({ navigation, route }) => {
                           >
                             Already have an account?{" "}
                             <Text
-                              onPress={() => navigation.navigate("Login", {scheme})}
+                              onPress={() => navigation.navigate("Login")}
                               style={{ color: "blue" }}
                             >
                               Sign In

@@ -18,7 +18,8 @@ import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
 import { useSelector } from "react-redux";
 import { ModalComponent } from "./components/ModalComponent";
 import { ChooseRide } from "../components/ChooseRide";
-// navigator.geolocation = require('react-native-geolocation-service');
+import { SetActive } from "./components/SetActive";
+
 
 
 const HomeScreen = () => {
@@ -69,6 +70,10 @@ const HomeScreen = () => {
             />
             </>
           )}
+          <SetActive
+          styles={{position: "absolute", top: 10}}
+          >
+          </SetActive>
         </MapView>
       </View>
       <ReactNativeModal

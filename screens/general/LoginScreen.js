@@ -10,16 +10,17 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-// import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
 import { LogoComponent } from "./components/LogoComponent";
-// import PhoneInput from "react-native-phone-number-input";
+import { useSelector } from "react-redux";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const LoginScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
+  const scheme = useSelector((state) => state.scheme.value);
+  
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
   }
@@ -28,7 +29,6 @@ const LoginScreen = ({ navigation, route }) => {
     setSelectedCountry(country);
   }
 
-  const scheme = route.params.scheme;
   return (
     <>
       <ScrollView>
@@ -94,7 +94,7 @@ const LoginScreen = ({ navigation, route }) => {
             >
               Don't have an account?{" "}
               <Text
-                onPress={() =>  navigation.navigate("SignUp", {scheme})}
+                onPress={() =>  navigation.navigate("SignUp")}
                 style={{ color: "blue" }}
               >
                Sign Up

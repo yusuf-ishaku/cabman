@@ -1,16 +1,18 @@
-import { View, Text } from "react-native";
+import { View, Text, Switch } from "react-native";
+import React from "react";
 
 export const SetActive = ({ styles }) => {
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  const toggleSwitch = () => setIsEnabled(!isEnabled);
+
   return (
-    <View
-      style={{
-        backgroundColor: "white",
-        borderRadius: 9999,
-        width: 150,
-        ...styles,
-      }}
-    >
-      <Text>This is the set active button not styled yet</Text>
-    </View>
+    <Switch
+      trackColor={{ false: "#767577", true: "#81b0ff" }}
+      thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+      ios_backgroundColor="#3e3e3e"
+      onValueChange={toggleSwitch}
+      value={isEnabled}
+      style={{...styles}}
+    />
   );
 };

@@ -13,6 +13,7 @@ import {
 } from "react-native";
 // import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
+import { useSelector } from "react-redux";
 // import PhoneInput from "react-native-phone-number-input";
 
 const width = Dimensions.get("window").width;
@@ -33,7 +34,8 @@ const OtpRequestScreen = ({ navigation, route }) => {
   function handleSelectedCountry(country) {
     setSelectedCountry(country);
   }
-  const scheme = route.params.scheme;
+  const scheme = useSelector((state) => state.scheme.scheme);
+  
   return (
     <>
       <ScrollView>

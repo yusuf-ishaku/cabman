@@ -17,8 +17,8 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 
 const RegistrationScreen = ({ navigation }) => {
-  const scheme = useSelector((state) => state.scheme.value);
-
+  const scheme = useSelector((state) => state.scheme.scheme);
+  console.log(scheme);
   const paramOptions = {
     status: "Success",
     info: "You have successfully completed your registration. \n You can now book and enjoy your rides.",

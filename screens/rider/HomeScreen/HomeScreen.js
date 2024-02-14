@@ -98,7 +98,7 @@ const HomeScreen = () => {
             }}
             GooglePlacesDetailsQuery={{ fields: "geometry" }}
             query={{
-              key: "AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0",
+              key: "",
               language: "en",
               components: "country:ng",
             }}
@@ -130,7 +130,7 @@ const HomeScreen = () => {
               });
             }}
             query={{
-              key: "AIzaSyCdb8wFaPr8FU9im8Ah5IKLWX6FWxVJUO0",
+              key: "",
               language: "en",
               components: "country:ng",
             }}

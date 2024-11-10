@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Dimensions,
-  Button,
   StatusBar,
   StyleSheet,
   TextInput,
@@ -20,8 +19,8 @@ const LoginScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const scheme = useSelector((state) => state.scheme.scheme);
+ 
   console.log(scheme);
-
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
   }

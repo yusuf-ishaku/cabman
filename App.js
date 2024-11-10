@@ -1,6 +1,7 @@
 import * as React from "react";
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
+import Toast from "react-native-toast-message";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import LoginScreen from "./screens/general/LoginScreen";
@@ -14,7 +15,7 @@ import SignUporSignInScreen from "./screens/general/SignUporSignIn";
 import * as SplashScreen from "expo-splash-screen";
 import * as Location from "expo-location";
 import { Provider, useDispatch, useSelector } from "react-redux";
-import { setLocation } from "./data/slices/userLocation";
+import { setLocation } from "./data/slices/user.slice";
 import { store } from "./data/store";
 import {
   useFonts,
@@ -151,12 +152,16 @@ export default function App() {
     return <Text>Issue encountered</Text>;
   }
   return (
-    <Provider store={store}>
+    <>
+       <Provider store={store}>
       <GetLocation></GetLocation>
       <NavigationContainer>
         <Unprotected></Unprotected>
       </NavigationContainer>
     </Provider>
+    <Toast/>
+    </>
+ 
   );
 }
 

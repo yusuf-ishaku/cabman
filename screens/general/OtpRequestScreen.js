@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Dimensions,
-  Button,
+  Pressable,
   StatusBar,
   StyleSheet,
   TextInput,
@@ -13,7 +13,13 @@ import {
 } from "react-native";
 // import { useFonts } from 'expo-font';
 import PhoneInput from "react-native-international-phone-number";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  useRecieveOtpMutation,
+  useVerifyOtpMutation,
+} from "../../data/apiSlice/user.slice";
+import { formatPhoneNumber } from "./utils/utils";
+import { updateUser as updateUserState } from "../../data/slices/user.slice";
 // import PhoneInput from "react-native-phone-number-input";
 
 const width = Dimensions.get("window").width;
@@ -28,14 +34,48 @@ const OtpRequestScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const [otpRequested, setOtpRequested] = React.useState(false);
+  const [userPhone, setUserPhone] = React.useState();
+  const [otp, setOtp] = React.useState();
+  const [recieveOtp] = useRecieveOtpMutation();
+  const [verifyOtp] = useVerifyOtpMutation();
+  const dispatch = useDispatch();
+  async function createUser(number) {
+    console.log(number.length);
+    if (number.length === 12) {
+      const validPhone = formatPhoneNumber(number);
+      setUserPhone(validPhone);
+      try {
+        const data = await recieveOtp({ phoneNumber: validPhone });
+        console.log(data);
+        if (data.data?.status === 200) {
+          setOtpRequested(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+  async function verifyOtpFn(otp) {
+    console.log(otp);
+    try {
+      const data = await verifyOtp({ phoneNumber: userPhone, otp: otp });
+      console.log(data);
+      if (data.data?.success) {
+        dispatch(updateUserState({phoneNumber: userPhone}));
+        navigation.navigate("SuccessScreen", paramOptions);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
   }
   function handleSelectedCountry(country) {
     setSelectedCountry(country);
   }
-  const scheme = useSelector((state) => state.scheme.scheme);
-  
+  // const scheme = useSelector((state) => state.scheme.scheme);
+
   return (
     <>
       <ScrollView>
@@ -67,13 +107,14 @@ const OtpRequestScreen = ({ navigation, route }) => {
                   }}
                 >
                   Please enter the verification code received via Voice OTP on
-                  your phone: 89899998989
+                  your phone: {userPhone}
                 </Text>
               </View>
               <View style={styles.form}>
                 <Text style={styles.label}>Verify</Text>
                 <TextInput
                   onChangeText={(newText) => {
+                    setOtp(newText);
                     if (newText.length > 3) {
                       Keyboard.dismiss();
                     }
@@ -89,16 +130,20 @@ const OtpRequestScreen = ({ navigation, route }) => {
                     fontFamily: "Poppins_400Regular",
                     fontSize: 16,
                     marginVertical: 16,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  Didn't get a code?{" "}
-                  <Text style={{ color: "blue" }}>Try again</Text>
+                  Didn't get a code?
+                  <Pressable onPress={() => setOtpRequested(false)}>
+                    <Text style={{ color: "blue", fontSize: 16 }}>
+                      Try again
+                    </Text>
+                  </Pressable>
                 </Text>
                 <TouchableOpacity
                   style={styles.submitButton}
-                  onPress={() =>
-                    navigation.navigate("SuccessScreen", paramOptions)
-                  }
+                  onPress={() => verifyOtpFn(otp)}
                 >
                   <Text
                     style={{
@@ -143,7 +188,7 @@ const OtpRequestScreen = ({ navigation, route }) => {
                 </View>
                 <TouchableOpacity
                   style={styles.submitButton}
-                  onPress={() => setOtpRequested(true)}
+                  onPress={() => createUser(inputValue)}
                 >
                   <Text
                     style={{
@@ -161,20 +206,22 @@ const OtpRequestScreen = ({ navigation, route }) => {
                   style={{
                     marginTop: 20,
                     marginVertical: 14,
+                    paddingHorizontal: 14,
                     fontFamily: "Poppins_400Regular",
-                    textAlign: "center",
-                    width: (width * 4) / 5,
+                    textAlign: "left",
+                    // width: (width * 4) / 5,
                     alignSelf: "center",
+                    fontSize: 16,
                   }}
                 >
-                  You will receive a voice OTP (Verification code). Message and
-                  data rates may apply.
+                  You will receive a voice OTP (Verification code). Please turn
+                  off do not disturb mode to receive the call.
                 </Text>
               </View>
               <View style={{ alignItems: "center", marginTop: 30 }}>
                 <Text
                   style={{
-                    fontSize: 15,
+                    fontSize: 16,
                     marginTop: 10,
                     fontFamily: "Poppins_400Regular",
                   }}
@@ -187,6 +234,22 @@ const OtpRequestScreen = ({ navigation, route }) => {
                     Sign In
                   </Text>
                 </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(`Register`)}
+                >
+                  <Text
+                    style={{
+                      color: "black",
+                      textAlign: "center",
+                      fontFamily: "Poppins_400Regular",
+                      fontSize: 16,
+                      textTransform: "uppercase",
+                      
+                    }}
+                  >
+                    Go to registration
+                  </Text>
+                </TouchableOpacity>
               </View>
             </>
           )}

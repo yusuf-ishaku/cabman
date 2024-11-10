@@ -24,7 +24,7 @@ import { ChooseRide } from "./components/ChooseRide";
 navigator.geolocation = require("react-native-geolocation-service");
 
 const HomeScreen = () => {
-  const currentLocation = useSelector((state) => state.userLocation.location);
+  const currentLocation = useSelector((state) => state.user.location);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [destination, setDestination] = React.useState(null);
   const [origin, setOrigin] = React.useState(null);
@@ -69,7 +69,7 @@ const HomeScreen = () => {
                     duration,
                   })
                 }
-                apikey={""}
+                apikey={"AIzaSyAuAN33w4g8FypFIyka-nkdr-PcvrY2T2Q"}
               />
             </>
           )}
@@ -98,11 +98,11 @@ const HomeScreen = () => {
             }}
             GooglePlacesDetailsQuery={{ fields: "geometry" }}
             query={{
-              key: "",
+              key: "AIzaSyAuAN33w4g8FypFIyka-nkdr-PcvrY2T2Q",
               language: "en",
               components: "country:ng",
             }}
-            // currentLocation={true}
+            currentLocation={true}
             // autoFillOnNotFound={true}
             styles={{ position: "absolute" }}
             predefinedPlaces={[
@@ -122,15 +122,15 @@ const HomeScreen = () => {
             GooglePlacesDetailsQuery={{ fields: "geometry" }}
             placeholder="Destination"
             onPress={(data, details) => {
-              // console.log(data, details);
-              // console.log(details.geometry.location);
+              console.log(data, details);
+              console.log(details.geometry.location);
               setDestination({
                 latitude: details.geometry.location.lat,
                 longitude: details.geometry.location.lng,
               });
             }}
             query={{
-              key: "",
+              key: "AIzaSyAuAN33w4g8FypFIyka-nkdr-PcvrY2T2Q",
               language: "en",
               components: "country:ng",
             }}

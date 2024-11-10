@@ -36,6 +36,14 @@
       "eas": {
         "projectId": "d4ecbc90-b06b-4708-ac08-f7adab2caadc"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Cabman to use your location."
+        }
+      ]
+    ]
   }
 }

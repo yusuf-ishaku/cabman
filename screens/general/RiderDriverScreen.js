@@ -15,15 +15,22 @@ import { LogoComponent } from "./components/LogoComponent";
 // import { useFonts } from 'expo-font';
 // import PhoneInput from "react-native-phone-number-input";
 import * as SplashScreen from "expo-splash-screen";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setScheme } from "../../data/slices/scheme";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 const RiderDriverScreen = ({ navigation }) => {
+  const user = useSelector((state) => state.user);
+  const scheme = useSelector((state) => state.scheme.scheme);
+
   React.useEffect(() => {
     const onLayoutRootView = async () => {
       await SplashScreen.hideAsync();
+      console.log(user);
+      if (user.fullName && user.isVerified) {
+        navigation.navigate(scheme === "rider" ? "HomeScreenRider" : "HomeScreenDriver");
+      }
     };
     onLayoutRootView();
   });

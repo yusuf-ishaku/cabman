@@ -66,7 +66,7 @@ const HomeScreen = () => {
                     duration,
                   })
                 }
-                apikey={""}
+                apikey={"AIzaSyAuAN33w4g8FypFIyka-nkdr-PcvrY2T2Q"}
               />
             </>
           )}

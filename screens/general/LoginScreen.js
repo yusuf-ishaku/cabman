@@ -8,10 +8,14 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from "react-native";
 import PhoneInput from "react-native-international-phone-number";
 import { LogoComponent } from "./components/LogoComponent";
 import { useSelector } from "react-redux";
+import { useLoginMutation } from "../../data/apiSlice/user.slice";
+import { formatPhoneNumber } from "./utils/utils";
+import Toast from "react-native-toast-message";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -19,7 +23,61 @@ const LoginScreen = ({ navigation, route }) => {
   const [selectedCountry, setSelectedCountry] = React.useState(null);
   const [inputValue, setInputValue] = React.useState("");
   const scheme = useSelector((state) => state.scheme.scheme);
- 
+  const [login] = useLoginMutation();
+  const [body, setBody] = React.useState({
+    phoneNumber: "",
+    password: "",
+  });
+
+  const handleInputChange = (field, value) => {
+    setBody((prevBody) => ({
+      ...prevBody,
+      [field]: value,
+    }));
+  };
+
+  const showToast = (type, text1, text2) => {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+    });
+  };
+
+  const sendData = async (body) => {
+    const validPhone = formatPhoneNumber(body.phoneNumber);
+      // setUserPhone(validPhone);
+    console.log(validPhone);
+    const formattedBody = {...body, phoneNumber: validPhone};
+    const validateBody = (body) => {
+      const { phoneNumber, password } = body;
+      
+      if (!phoneNumber || !password) {
+        showToast('error', 'Error', 'Please fill all necessary fields');
+        return false;
+      }
+      return true;
+    };
+    // validateBody(body);
+    try {
+      if (validateBody(formattedBody)) {
+        console.log(formattedBody)
+        const response = await login(formattedBody);
+        if (response) {
+          console.log(response);
+          if (response.data?.data) {
+            showToast('success', 'Success', 'Login successful');
+            navigation.navigate(scheme === "rider" ? "HomeScreenRider" : "HomeScreenDriver");
+          } else {
+            Alert.alert("Error", response.error.data.message);
+          }
+        }
+      }
+    } catch (error) {
+      console.error(error.message);
+      return;
+    }
+  };
   console.log(scheme);
   function handleInputValue(phoneNumber) {
     setInputValue(phoneNumber);
@@ -59,6 +117,7 @@ const LoginScreen = ({ navigation, route }) => {
             <TextInput
               style={styles.input}
               placeholder="Enter Password"
+              onChangeText={(text) => handleInputChange("password", text)}
             ></TextInput>
             <Text
               style={{
@@ -75,9 +134,8 @@ const LoginScreen = ({ navigation, route }) => {
             <TouchableOpacity
               style={styles.submitButton}
               onPress={() =>{
-                if(scheme === "rider")
-                 {navigation.navigate("HomeScreenRider")}
-                else {navigation.navigate("HomeScreenDriver")}
+                sendData({...body, phoneNumber: inputValue});
+              
               }
               }
             >

@@ -234,22 +234,6 @@ const OtpRequestScreen = ({ navigation, route }) => {
                     Sign In
                   </Text>
                 </Text>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(`Register`)}
-                >
-                  <Text
-                    style={{
-                      color: "black",
-                      textAlign: "center",
-                      fontFamily: "Poppins_400Regular",
-                      fontSize: 16,
-                      textTransform: "uppercase",
-                      
-                    }}
-                  >
-                    Go to registration
-                  </Text>
-                </TouchableOpacity>
               </View>
             </>
           )}

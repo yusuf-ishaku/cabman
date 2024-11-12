@@ -25,8 +25,15 @@ export const userApiSlice = baseApi.injectEndpoints({
                 method: 'POST',
                 body,
             })
-        })
+        }),
+        login: builder.mutation({
+            query: (body) => ({
+                url: `auth/login`,
+                method: 'POST',
+                body,
+            })
+        }),
     }),
 })
 
-export const {useGetUserQuery, useRecieveOtpMutation, useVerifyOtpMutation, useUpdateUserMutation} = userApiSlice;
+export const {useGetUserQuery, useRecieveOtpMutation, useVerifyOtpMutation, useUpdateUserMutation, useLoginMutation} = userApiSlice;

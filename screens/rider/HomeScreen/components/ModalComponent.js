@@ -16,11 +16,6 @@ export const ModalComponent = () => {
       }}
     >
       <Pressable
-        onPress={() =>
-          Browser.openBrowserAsync(
-            "https://cabman.net/app2/customer/airtime.php"
-          )
-        }
         style={{
           padding: 8,
           borderBottomWidth: 1,
@@ -32,9 +27,6 @@ export const ModalComponent = () => {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() =>
-          Browser.openBrowserAsync("https://cabman.net/app2/customer/data.php")
-        }
         style={{
           padding: 8,
           borderBottomWidth: 1,
@@ -46,11 +38,6 @@ export const ModalComponent = () => {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() =>
-          Browser.openBrowserAsync(
-            "https://cabman.net/app2/customer/cabletv.php"
-          )
-        }
         style={{
           padding: 8,
           borderBottomWidth: 1,
@@ -62,11 +49,6 @@ export const ModalComponent = () => {
         </Text>
       </Pressable>
       <Pressable
-        onPress={() =>
-          Browser.openBrowserAsync(
-            "https://cabman.net/app2/customer/electricity.php"
-          )
-        }
         style={{
           padding: 8,
         }}

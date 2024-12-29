@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
+const BACKEND_URL = 'https://a5ac-105-116-0-39.ngrok-free.app/';
 import { useEffect, useRef, useState } from 'react';
 const useSocket = () => {
   const socket = useRef(null);
@@ -56,3 +56,4 @@ const useSocket = () => {
 };
 
 export default useSocket;
+

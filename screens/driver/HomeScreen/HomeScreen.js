@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Pressable,
   TouchableOpacity,
-  Modal,
+  ActivityIndicator,
 } from "react-native";
 import ReactNativeModal from "react-native-modal";
 import MapViewDirections from "react-native-maps-directions";
@@ -15,28 +15,56 @@ const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
 import MapView, { Marker } from "react-native-maps";
 import { PROVIDER_GOOGLE } from "react-native-maps/lib/ProviderConstants";
-import { useSelector } from "react-redux";
 import { ModalComponent } from "./components/ModalComponent";
-import { ChooseRide } from "./components/ChooseRide";
 import { SetActive } from "./components/SetActive";
+import useGetLocation from "../../../hooks/location";
+import RideRequest from "./components/RideRequest";
 
-const HomeScreen = () => {
-  const currentLocation = useSelector((state) => state.userLocation.location);
+const HomeScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [rideRequestData, setRideRequestData] = React.useState(null);
   const [destination, setDestination] = React.useState(null);
   const [origin, setOrigin] = React.useState(null);
   const [rideSet, setRideSet] = React.useState(false);
   const [dues, setDues] = React.useState(null);
-  //   console.log(state);
-  const initialRegion = {
-    latitude: currentLocation.coords.latitude,
-    longitude: currentLocation.coords.longitude,
-    latitudeDelta: 0.005,
-    longitudeDelta: 0.005,
+  const { currentLocation, initialRegion, error } = useGetLocation();
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
+  const handleRideRequest = (data) => {
+    setModalVisible(true);
+    setRideRequestData(data);
   };
+  const handleRideCancel = (data) => {
+    setModalVisible(false);
+    setRideRequestData(null);
+  }
+  if (!currentLocation || !initialRegion) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={"white"} />
+      <Pressable
+        style={{
+          marginTop: 10,
+          position: "absolute",
+          zIndex: 1000,
+          backgroundColor: "white",
+          padding: 10,
+          borderRadius: 10,
+          right: 10,
+          paddingInline: 15,
+        }}
+        onPress={() => navigation.openDrawer()}
+      >
+        <Text style={{ fontSize: 24 }}>☰</Text>
+      </Pressable>
       <View style={{ backgroundColor: "gray", height: height - 80 }}>
         <MapView
           initialRegion={initialRegion}
@@ -45,8 +73,8 @@ const HomeScreen = () => {
         >
           <Marker
             coordinate={{
-              latitude: currentLocation.coords.latitude,
-              longitude: currentLocation.coords.longitude,
+              latitude: currentLocation.latitude,
+              longitude: currentLocation.longitude,
             }}
             title="Your Location"
           />
@@ -71,7 +99,10 @@ const HomeScreen = () => {
             </>
           )}
         </MapView>
-        <SetActive styles={{ position: "absolute", top: 10, left: 10 }}></SetActive>
+        <SetActive
+          styles={{ position: "absolute", top: 10, left: 10 }}
+          handleRideRequest={handleRideRequest}
+        ></SetActive>
       </View>
       <ReactNativeModal
         isVisible={modalVisible}
@@ -87,37 +118,40 @@ const HomeScreen = () => {
           fontFamily: "Poppins_400Regular",
         }}
       >
-        <View style={{ backgroundColor: "white", width, height: 300 }}>
-          <View
-            style={{
-              textAlign: "left",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              paddingVertical: 10,
-              paddingHorizontal: 10,
-              borderBottomColor: "#d3d3d3",
-              borderBottomWidth: 1,
-            }}
-          >
-            <Text style={{ fontFamily: "Poppins_400Regular", fontSize: 18 }}>
-              Choose an option
-            </Text>
-            <Pressable onPress={() => setModalVisible(!modalVisible)}>
-              <Text
-                style={{
-                  fontFamily: "Poppins_400Regular",
-                  fontSize: 14,
-                  color: "blue",
-                }}
-              >
-                Close
+        {!rideRequestData ? (
+          <View style={{ backgroundColor: "white", width, height: 300 }}>
+            <View
+              style={{
+                textAlign: "left",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-between",
+                paddingVertical: 10,
+                paddingHorizontal: 10,
+                borderBottomColor: "#d3d3d3",
+                borderBottomWidth: 1,
+              }}
+            >
+              <Text style={{ fontFamily: "Poppins_400Regular", fontSize: 18 }}>
+                Choose an option
               </Text>
-            </Pressable>
+              <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                <Text
+                  style={{
+                    fontFamily: "Poppins_400Regular",
+                    fontSize: 14,
+                    color: "blue",
+                  }}
+                >
+                  Close
+                </Text>
+              </Pressable>
+            </View>
+            <ModalComponent></ModalComponent>
           </View>
-
-          <ModalComponent></ModalComponent>
-        </View>
+        ) : (
+          <RideRequest width={width} handleRideCancel={handleRideCancel} rideRequestData={rideRequestData} />
+        )}
       </ReactNativeModal>
       <View
         style={{
@@ -127,47 +161,24 @@ const HomeScreen = () => {
           backgroundColor: "white",
         }}
       >
-        {origin && destination ? (
-          <View
+        <TouchableOpacity
+          style={{ ...styles.submitButton }}
+          onPress={() => {
+            setModalVisible(true);
+          }}
+        >
+          <Text
             style={{
-              flexDirection: "row",
-              justifyContent: "space-evenly",
+              color: "white",
+              textAlign: "center",
+              fontFamily: "Poppins_400Regular",
+              fontSize: 16,
+              textAlignVertical: "center",
             }}
           >
-            <TouchableOpacity
-              onPress={() => {
-                setModalVisible(true);
-                setRideSet(true);
-              }}
-            >
-              <Text>Ride Now</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-            // onPress={() => {setModalVisible(true); setRideSet(!rideSet)}}
-            >
-              <Text>Ride later</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <TouchableOpacity
-            style={{ ...styles.submitButton }}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text
-              style={{
-                color: "white",
-                textAlign: "center",
-                fontFamily: "Poppins_400Regular",
-                fontSize: 16,
-                textAlignVertical: "center",
-              }}
-            >
-              Pay Bills and Utilities
-            </Text>
-          </TouchableOpacity>
-        )}
+            Pay Bills and Utilities
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

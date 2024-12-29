@@ -2,16 +2,15 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import { ConfirmRide } from "./ConfirmRide";
 
-export const ChooseRide = ({ dues }) => {
+export const ChooseRide = ({ dues, origin, destination }) => {
   const [classicTrue, setClassicTrue] = React.useState(true);
   const [execTrue, setExecTrue] = React.useState(false);
-  // console.log(dues)
   const { distance, duration } = dues.distance;
   return (
     <>
       <View style={styles.header}>
         <TouchableOpacity
-          style={{ borderBottomWidth: classicTrue ? 1 : 0 }}
+          style={{ borderBottomWidth: classicTrue ? 2 : 0, padding: 5, borderColor: "blue"}}
           onPress={() => {
             if (classicTrue) {
               setClassicTrue(false);
@@ -22,10 +21,12 @@ export const ChooseRide = ({ dues }) => {
             }
           }}
         >
-          <Text>Classic</Text>
+          <Text
+          style={{ color: classicTrue ? "blue" : "black" }}
+          >Classic</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={{ borderBottomWidth: execTrue ? 1 : 0 }}
+          style={{ borderBottomWidth: execTrue ? 2 : 0,  padding: 5, borderColor: "blue",  }}
           onPress={() => {
             if (execTrue) {
               setClassicTrue(true);
@@ -36,13 +37,17 @@ export const ChooseRide = ({ dues }) => {
             }
           }}
         >
-          <Text>Executive</Text>
+          <Text
+          style={{color: execTrue ? "blue" : "black"}}
+          >Executive</Text>
         </TouchableOpacity>
       </View>
-      <View>
+      <View style={{padding: 10}}>
         <ConfirmRide
           dues={{ distance, duration }}
           ride={classicTrue ? "classic" : "executive"}
+          origin={origin}
+          destination={destination}
         ></ConfirmRide>
       </View>
     </>

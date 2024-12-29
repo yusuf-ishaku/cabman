@@ -20,6 +20,7 @@ import {
 } from "../../data/apiSlice/user.slice";
 import { formatPhoneNumber } from "./utils/utils";
 import { updateUser as updateUserState } from "../../data/slices/user.slice";
+import { showToast } from "./utils/utils";
 // import PhoneInput from "react-native-phone-number-input";
 
 const width = Dimensions.get("window").width;
@@ -39,33 +40,42 @@ const OtpRequestScreen = ({ navigation, route }) => {
   const [recieveOtp] = useRecieveOtpMutation();
   const [verifyOtp] = useVerifyOtpMutation();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   async function createUser(number) {
     console.log(number.length);
     if (number.length === 12) {
       const validPhone = formatPhoneNumber(number);
+      dispatch(updateUserState({ phoneNumber: validPhone }));
       setUserPhone(validPhone);
       try {
         const data = await recieveOtp({ phoneNumber: validPhone });
-        console.log(data);
+        // console.log(data);
         if (data.data?.status === 200) {
+          showToast("success", "Success", "OTP sent successfully");
           setOtpRequested(true);
         }
       } catch (error) {
-        console.log(error);
+        console.log("Error:", error);
+        showToast("error", "Error", error.data.message);
       }
+    }else {
+      showToast('error', 'Error', 'Invalid phone number');
     }
   }
   async function verifyOtpFn(otp) {
-    console.log(otp);
     try {
       const data = await verifyOtp({ phoneNumber: userPhone, otp: otp });
-      console.log(data);
+      // console.log("Data:", data);
       if (data.data?.success) {
-        dispatch(updateUserState({phoneNumber: userPhone}));
+        dispatch(updateUserState({ phoneNumber: userPhone }));
         navigation.navigate("SuccessScreen", paramOptions);
+      }
+      if (data.error) {
+        showToast("error", "Error", data.error.data.message);
       }
     } catch (error) {
       console.log(error);
+      showToast("error", "Error", error.data.message);
     }
   }
   function handleInputValue(phoneNumber) {
@@ -107,7 +117,7 @@ const OtpRequestScreen = ({ navigation, route }) => {
                   }}
                 >
                   Please enter the verification code received via Voice OTP on
-                  your phone: {userPhone}
+                  your phone: {user.phoneNumber}
                 </Text>
               </View>
               <View style={styles.form}>

@@ -37,13 +37,15 @@
         "projectId": "d4ecbc90-b06b-4708-ac08-f7adab2caadc"
       }
     },
+    "newArchEnabled": false,
     "plugins": [
       [
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow Cabman to use your location."
         }
-      ]
+      ],
+      "expo-font"
     ]
   }
 }

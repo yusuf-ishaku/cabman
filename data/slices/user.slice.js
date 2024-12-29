@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userLocationSlice = createSlice({
-    name: 'userLocation',
+    name: 'user',
     initialState: {
         location: null,
         fullName: "",
@@ -19,6 +19,18 @@ const userLocationSlice = createSlice({
             state.location = action.payload;
            return state;
         },
+        clearState(state) {
+            state.location = null;
+            state.fullName = "";
+            state.address = "";
+            state.city = "";
+            state.country = "";
+            state.email = "";
+            state.profilePicture = "";
+            state.referralCode = "";
+            state.phoneNumber = '';
+            return state;
+        },
         updateUser(state, action) {
             Object.keys(action.payload).forEach(key => {
                 if (state.hasOwnProperty(key)) {
@@ -30,5 +42,5 @@ const userLocationSlice = createSlice({
     }
 });
 
-export const { setLocation, updateUser} = userLocationSlice.actions;
+export const { setLocation, updateUser, clearState} = userLocationSlice.actions;
 export default userLocationSlice.reducer;

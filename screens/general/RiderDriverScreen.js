@@ -3,10 +3,8 @@ import {
   View,
   Text,
   Dimensions,
-  Button,
   StatusBar,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   ScrollView,
   ImageBackground,
@@ -28,8 +26,11 @@ const RiderDriverScreen = ({ navigation }) => {
     const onLayoutRootView = async () => {
       await SplashScreen.hideAsync();
       console.log(user);
-      if (user.fullName && user.isVerified) {
-        navigation.navigate(scheme === "rider" ? "HomeScreenRider" : "HomeScreenDriver");
+      if (user.fullName) {
+        navigation.navigate("Tabs");
+      }
+      if(user.phoneNumber && !user.fullName){
+        navigation.navigate("SignUp");
       }
     };
     onLayoutRootView();

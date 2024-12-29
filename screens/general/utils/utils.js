@@ -1,3 +1,4 @@
+import Toast from "react-native-toast-message";
 export const formatPhoneNumber = (phoneNumber) => {
   // Remove all spaces
   let formattedNumber = phoneNumber.replace(/\s+/g, "");
@@ -10,4 +11,11 @@ export const formatPhoneNumber = (phoneNumber) => {
     }
   }
   return formattedNumber;
+};
+export const showToast = (type, text1, text2) => {
+  Toast.show({
+    type: type,
+    text1: text1,
+    text2: text2,
+  });
 };

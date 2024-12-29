@@ -8,14 +8,14 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
-  Alert
+  Alert,
 } from "react-native";
 import PhoneInput from "react-native-international-phone-number";
 import { LogoComponent } from "./components/LogoComponent";
 import { useSelector } from "react-redux";
 import { useLoginMutation } from "../../data/apiSlice/user.slice";
 import { formatPhoneNumber } from "./utils/utils";
-import Toast from "react-native-toast-message";
+import { showToast } from "./utils/utils";
 
 const width = Dimensions.get("window").width;
 const height = Dimensions.get("window").height;
@@ -35,25 +35,16 @@ const LoginScreen = ({ navigation, route }) => {
       [field]: value,
     }));
   };
-
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-      type: type,
-      text1: text1,
-      text2: text2,
-    });
-  };
-
   const sendData = async (body) => {
     const validPhone = formatPhoneNumber(body.phoneNumber);
-      // setUserPhone(validPhone);
+    // setUserPhone(validPhone);
     console.log(validPhone);
-    const formattedBody = {...body, phoneNumber: validPhone};
+    const formattedBody = { ...body, phoneNumber: validPhone };
     const validateBody = (body) => {
       const { phoneNumber, password } = body;
-      
+
       if (!phoneNumber || !password) {
-        showToast('error', 'Error', 'Please fill all necessary fields');
+        showToast("error", "Error", "Please fill all necessary fields");
         return false;
       }
       return true;
@@ -61,15 +52,20 @@ const LoginScreen = ({ navigation, route }) => {
     // validateBody(body);
     try {
       if (validateBody(formattedBody)) {
-        console.log(formattedBody)
+        console.log(formattedBody);
         const response = await login(formattedBody);
         if (response) {
           console.log(response);
           if (response.data?.data) {
-            showToast('success', 'Success', 'Login successful');
-            navigation.navigate(scheme === "rider" ? "HomeScreenRider" : "HomeScreenDriver");
+            showToast("success", "Success", "Login successful");
+            navigation.navigate(
+              scheme === "rider" ? "HomeScreenRider" : "HomeScreenDriver"
+            );
           } else {
-            Alert.alert("Error", response.error.data.message);
+            // Alert.alert("Error", response.error.data.message);
+            showToast("error", "Error", response.error.data.message);
+
+            // showToast('success', 'Success', 'Login successful');
           }
         }
       }
@@ -133,11 +129,9 @@ const LoginScreen = ({ navigation, route }) => {
             </Text>
             <TouchableOpacity
               style={styles.submitButton}
-              onPress={() =>{
-                sendData({...body, phoneNumber: inputValue});
-              
-              }
-              }
+              onPress={() => {
+                sendData({ ...body, phoneNumber: inputValue });
+              }}
             >
               <Text
                 style={{
